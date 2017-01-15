@@ -1,2 +1,2 @@
 # RoseCoffee
-Coffee delivery Android application for RHIT students
+Coffee delivery Android application for RHIT students.
