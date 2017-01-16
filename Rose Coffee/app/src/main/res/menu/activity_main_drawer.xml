@@ -4,31 +4,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_my_delivery"
-            android:icon="@android:drawable/ic_menu_send"
+            android:icon="@drawable/ic_home_black_48dp"
             android:title="@string/nav_bar_my_delivery_tag" />
         <item
             android:id="@+id/nav_account_info"
-            android:icon="@android:drawable/ic_menu_info_details"
+            android:icon="@drawable/ic_account_box_black_48dp"
             android:title="Account Info" />
         <item
             android:id="@+id/nav_setting"
-            android:icon="@android:drawable/ic_menu_preferences"
+            android:icon="@drawable/ic_settings_black_48dp"
             android:title="Setting" />
     </group>
 
-
-    <!--Save the following code just for later reference-->
-    <!--<item android:title="Communicate">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="Share" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Send" />-->
-        <!--</menu>-->
-    <!--</item>-->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_info_black_48dp"
+            android:title="Share" />
+    </group>
 
 </menu>
