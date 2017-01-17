@@ -14,7 +14,7 @@ public class User implements Customer,DeliveryPerson{
     private Order mDefaultOrder;
     private ArrayList<Order> mOrderHistory;
     public User(String userName){
-        mName = userName; // this is temporary user's name before he/she changes his/her name from the setting
+        mName = userName; // this is temporary user's name before he/she changes his/her name from the SettingFragment
     }
 
     //user related method (generate ID, password related, authentication, etc)

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AboutUsFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.CustomerMainFragment;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment;
 
 /*
 ** Author: Seongjin Yoon and Zhiqiang Qiu
@@ -102,6 +103,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.containerView,new SettingFragment()).commit();
+
             return true;
         }
 

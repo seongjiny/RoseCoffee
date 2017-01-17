@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment">
+
+    <TextView
+        android:id="@+id/setting_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setting_title"
+        android:layout_margin="20dp"
+        android:textSize="22sp"
+        />
+    <TextView
+        android:id="@+id/setting_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setting_content"
+        android:layout_below="@+id/setting_title"
+        android:textSize="16sp"
+        android:layout_marginLeft="40dp"
+        />
+    <Switch
+        android:id="@+id/receive_notification_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@+id/setting_title"
+        android:layout_toRightOf="@+id/setting_content"
+        />
+</RelativeLayout>
