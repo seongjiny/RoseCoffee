@@ -1,16 +1,30 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
-import android.support.design.widget.TabLayout;
+
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
 /**
- * Created by JerryQiu on 1/16/17.
+ * A simple {@link Fragment} subclass.
  */
 public class AboutUsFragment extends Fragment {
-    public static TabLayout tabLayout;
-    public static ViewPager viewPager;
-    public static int int_items = 3 ;
 
-    
+
+    public AboutUsFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_about, container, false);
+    }
+
 }
