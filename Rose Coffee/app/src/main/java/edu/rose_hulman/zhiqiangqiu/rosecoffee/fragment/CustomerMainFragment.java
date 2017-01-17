@@ -1,4 +1,4 @@
-package edu.rose_hulman.zhiqiangqiu.rosecoffee;
+package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
 import android.support.v4.app.Fragment;
 

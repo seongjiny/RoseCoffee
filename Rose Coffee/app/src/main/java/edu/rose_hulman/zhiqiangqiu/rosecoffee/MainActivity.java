@@ -11,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AboutUsFragment;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.CustomerMainFragment;
+
 /*
 ** Author: Seongjin Yoon and Zhiqiang Qiu
 **
