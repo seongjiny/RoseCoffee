@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AccountInformationFragment">
 
-  
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="@string/hello_blank_fragment"
+
+        />
 
 </FrameLayout>
