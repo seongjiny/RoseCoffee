@@ -32,4 +32,9 @@
     <string name="order_detail">Order Detail</string>
     <string name="conf_and_checkout">Confirm and Check Out</string>
     <string name="order_type">New Order</string>
+    <string name="building_name"></string>
+    <string name="room_name"></string>
+    <string name="cus_main_msg_hint">\nMessage to Delivery Man\n</string>
+    <string name="cus_main_room_hint">Room Number (259)</string>
+    <string name="cus_main_building_hint">Building Name (Olin)</string>
 </resources>

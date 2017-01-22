@@ -6,103 +6,67 @@
     android:orientation="vertical"
     >
 
-    <RelativeLayout
-        android:id="@+id/cus_main_progress_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        >
-        <TextView
-            android:id="@+id/cus_main_loc_and_time_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/loc_and_time"
-            android:background="@drawable/border_style_colored"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:padding= "5dp"
-            android:layout_marginLeft="5dp"
-            />
-        <ImageView
-            android:id="@+id/cus_main_arrow1"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:src="@drawable/cus_arrow_right_blank"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/cus_main_loc_and_time_textview"
-            />
-        <TextView
-            android:id="@+id/cus_main_order_detail_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/order_detail"
-            android:background="@drawable/border_style"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:padding= "5dp"
-            android:layout_toRightOf="@+id/cus_main_arrow1"
-            android:layout_marginLeft="5dp"
-            />
-        <ImageView
-            android:id="@+id/cus_main_arrow2"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:src="@drawable/cus_arrow_right_blank"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/cus_main_order_detail_textview"
-            />
-        <TextView
-            android:id="@+id/cus_main_conf_and_checkout_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/conf_and_checkout"
-            android:background="@drawable/border_style"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:padding= "5dp"
-            android:layout_toRightOf="@+id/cus_main_arrow2"
-            android:layout_marginLeft="5dp"
-            />
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/cus_main_progress_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingTop="10dp"-->
+        <!--&gt;-->
+        <!--<TextView-->
+            <!--android:id="@+id/cus_main_loc_and_time_textview"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/loc_and_time"-->
+            <!--android:background="@drawable/border_style_colored"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="12sp"-->
+            <!--android:padding= "5dp"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--/>-->
+        <!--<ImageView-->
+            <!--android:id="@+id/cus_main_arrow1"-->
+            <!--android:layout_width="17dp"-->
+            <!--android:layout_height="17dp"-->
+            <!--android:src="@drawable/cus_arrow_right_blank"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_toRightOf="@+id/cus_main_loc_and_time_textview"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/cus_main_order_detail_textview"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/order_detail"-->
+            <!--android:background="@drawable/border_style"-->
+            <!--android:textSize="12sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:padding= "5dp"-->
+            <!--android:layout_toRightOf="@+id/cus_main_arrow1"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--/>-->
+        <!--<ImageView-->
+            <!--android:id="@+id/cus_main_arrow2"-->
+            <!--android:layout_width="17dp"-->
+            <!--android:layout_height="17dp"-->
+            <!--android:src="@drawable/cus_arrow_right_blank"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_toRightOf="@+id/cus_main_order_detail_textview"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/cus_main_conf_and_checkout_textview"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/conf_and_checkout"-->
+            <!--android:background="@drawable/border_style"-->
+            <!--android:textSize="12sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:padding= "5dp"-->
+            <!--android:layout_toRightOf="@+id/cus_main_arrow2"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--/>-->
+    <!--</RelativeLayout>-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingLeft="20dp"
-
-        >
-        <ImageView
-            android:id="@+id/cus_main_order_type_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/cus_order_type"
-            android:layout_centerVertical="true"
-            />
-        <TextView
-            android:id="@+id/cus_main_order_type_text"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/cus_main_order_type_img"
-            android:text="@string/order_type"
-            android:layout_centerVertical="true"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:layout_marginLeft="10dp"
-            />
-        <ImageButton
-            android:id="@+id/cus_main_order_type_button"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_toRightOf="@+id/cus_main_order_type_text"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/cus_button_next"
-            />
-
-    </RelativeLayout>
 
 
 </LinearLayout>

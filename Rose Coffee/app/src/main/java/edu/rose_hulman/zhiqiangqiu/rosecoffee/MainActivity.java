@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
