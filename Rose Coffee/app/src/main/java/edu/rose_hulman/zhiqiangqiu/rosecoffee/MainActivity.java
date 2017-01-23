@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AboutUsFragment;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AccountInformationFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.CustomerMainFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment;
 
@@ -60,9 +61,21 @@ public class MainActivity extends AppCompatActivity
 
                 }
 
+                if (menuItem.getItemId() == R.id.nav_setting) {
+
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.containerView,new SettingFragment()).commit();
+                }
+
                 if (menuItem.getItemId() == R.id.nav_my_delivery) {
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new CustomerMainFragment()).commit();
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.containerView,new CustomerMainFragment()).commit();
+                }
+
+                if (menuItem.getItemId() == R.id.nav_account_info) {
+
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.containerView,new AccountInformationFragment()).commit();
                 }
 
                 return false;
@@ -106,8 +119,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.containerView,new SettingFragment()).commit();
 
             return true;
         }

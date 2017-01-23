@@ -1,15 +1,165 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AccountInformationFragment">
 
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
-        />
+        <TextView
+            android:text="I am delivering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/is_delivering_index_textview"
+            android:textSize="18sp" />
+
+        <Switch
+            android:text="Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/is_delivering_switch"
+            android:layout_alignTop="@+id/is_delivering_index_textview"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignTop="@id/is_delivering_index_textview"
+            android:layout_marginTop="40dp"
+            android:background="@color/grey" />
+
+
+
+        <ImageButton
+            android:layout_height="120dp"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:id="@+id/profile_photo_imagebutton"
+            android:layout_marginTop="50dp"
+            android:layout_alignTop="@id/is_delivering_index_textview"
+            android:layout_centerHorizontal="true"
+            android:layout_width="120dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Profile Photo"
+            android:id="@+id/change_profile_image_textview"
+            android:layout_below="@+id/profile_photo_imagebutton"
+            android:textColor="@color/linkBlue"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="First name:"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/firstname_index_textview"
+            android:layout_below="@+id/change_profile_image_textview" />
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:layout_alignTop="@+id/firstname_index_textview"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/firstname_edit_imagebutton" />
+
+        <TextView
+            android:text="Zhiqiang"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/firstname_edit_imagebutton"
+            android:layout_marginRight="50dp"
+            android:id="@+id/firstname_content_textview"
+            android:layout_alignTop="@+id/firstname_index_textview" />
+
+        <TextView
+            android:text="Last name:"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/lastname_index_textview"
+            android:layout_below="@+id/firstname_index_textview" />
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:layout_alignTop="@+id/lastname_index_textview"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/lastname_edit_imagebutton" />
+
+        <TextView
+            android:text="Qiu"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/lastname_edit_imagebutton"
+            android:layout_marginRight="50dp"
+            android:id="@+id/lastname_content_textview"
+            android:layout_alignTop="@+id/lastname_index_textview" />
+
+        <TextView
+            android:text="Phone number:"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/phone_number_index_textview"
+            android:layout_below="@+id/lastname_index_textview" />
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:layout_alignTop="@+id/phone_number_index_textview"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/phone_number_edit_imagebutton" />
+
+        <TextView
+            android:text="(812) 241-5966"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/phone_number_edit_imagebutton"
+            android:layout_marginRight="50dp"
+            android:id="@+id/phone_number_content_textview"
+            android:layout_alignTop="@+id/phone_number_index_textview" />
+
+        <TextView
+            android:text="Payment method:"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/payment_index_textview"
+            android:layout_below="@+id/phone_number_index_textview" />
+
+        <TextView
+            android:text="Default Location:"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:id="@+id/default_location_index_textview"
+            android:layout_below="@+id/payment_index_textview" />
+
+
+
+    </RelativeLayout>
 
 </FrameLayout>
