@@ -2,101 +2,96 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.LocationAndTimeFragment"
-     android:layout_height="match_parent"
+    android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingLeft="20dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        >
-        <ImageView
-            android:id="@+id/cus_main_building_img"
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:src="@drawable/cus_main_building_img"
-            android:layout_centerVertical="true"
-            />
-        <EditText
-            android:id="@+id/cus_main_building_text"
-            android:layout_width="230dp"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/cus_main_building_img"
-            android:text="@string/building_name"
-            android:layout_centerVertical="true"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:layout_marginLeft="10dp"
-            android:hint="@string/cus_main_building_hint"
-            android:maxLines="1"
-            android:inputType="text"
-            android:ellipsize="end"
-            />
+            android:layout_marginTop="30dp"
+            android:paddingLeft="20dp">
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingLeft="20dp"
+            <ImageView
+                android:id="@+id/cus_main_building_img"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:src="@drawable/cus_main_building_img"
+                android:layout_centerVertical="true" />
 
-        >
-        <ImageView
-            android:id="@+id/cus_main_room_img"
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:src="@drawable/cus_main_room_img"
-            android:layout_centerVertical="true"
-            />
-        <EditText
-            android:id="@+id/cus_main_room_text"
-            android:layout_width="230dp"
+            <EditText
+                android:id="@+id/cus_main_building_text"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/cus_main_building_img"
+                android:text="@string/building_name"
+                android:layout_centerVertical="true"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"
+                android:hint="@string/cus_main_building_hint"
+                android:maxLines="1"
+                android:inputType="text"
+                android:ellipsize="end" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/cus_main_room_img"
-            android:text="@string/room_name"
-            android:layout_centerVertical="true"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:layout_marginLeft="10dp"
-            android:hint="@string/cus_main_room_hint"
-            android:maxLines="1"
-            android:inputType="text"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="20dp">
+
+            <ImageView
+                android:id="@+id/cus_main_room_img"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:src="@drawable/cus_main_room_img"
+                android:layout_centerVertical="true" />
+
+            <EditText
+                android:id="@+id/cus_main_room_text"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/cus_main_room_img"
+                android:text="@string/room_name"
+                android:layout_centerVertical="true"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"
+                android:hint="@string/cus_main_room_hint"
+                android:maxLines="1"
+                android:inputType="text"
+                android:ellipsize="end" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:maxLines="5"
             android:ellipsize="end"
-            />
-
-    </RelativeLayout>
-    <EditText
-        android:inputType="textMultiLine"
-        android:lines="3"
-        android:maxLines="5"
-        android:ellipsize="end"
-        android:padding="10sp"
-        android:hint="@string/cus_main_msg_hint"
-        android:layout_marginTop="20dp"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/border_style"
-        />
+            android:padding="10sp"
+            android:hint="@string/cus_main_msg_hint"
+            android:layout_marginTop="10dp"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/border_style" />
 
 
-    <TimePicker
-        android:id="@+id/cus_main_time_picker"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        />
-
-
-</LinearLayout>
+        <TimePicker
+            android:id="@+id/cus_main_time_picker"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp" />
+    </LinearLayout>
 </ScrollView>
