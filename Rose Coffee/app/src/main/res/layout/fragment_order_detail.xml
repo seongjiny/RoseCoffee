@@ -1,13 +1,70 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.OrderDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello from detail page" />
+    <RelativeLayout
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        android:background="@drawable/border_style"
+        android:clickable="true"
+        >
+        <ImageView
+            android:id="@+id/order_detail_add_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add"
+            />
+        <TextView
+            android:id="@+id/order_detail_add_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_detail_add_drink"
+            android:textSize="25sp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/order_detail_add_image"
+            />
 
-</FrameLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        android:background="@drawable/border_style"
+        android:clickable="true"
+        >
+        <ImageView
+            android:id="@+id/order_detail_add_image2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add"
+            />
+        <TextView
+            android:id="@+id/order_detail_add_drink_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_detail_add_snack"
+            android:textSize="25sp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/order_detail_add_image2"
+            />
+
+    </RelativeLayout>
+    <!--list of orders here-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/order_detail_orders_layout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:clickable="true"
+        android:background="@drawable/border_style">
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

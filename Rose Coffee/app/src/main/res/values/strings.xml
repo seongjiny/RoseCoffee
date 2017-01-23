@@ -36,4 +36,6 @@
     <string name="cus_main_msg_hint">\nMessage to Delivery Man\n</string>
     <string name="cus_main_room_hint">Room Number (259)</string>
     <string name="cus_main_building_hint">Building Name (Olin)</string>
+    <string name="order_detail_add_drink">Add a drink</string>
+    <string name="order_detail_add_snack">Add a snack</string>
 </resources>
