@@ -15,6 +15,7 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 public class AccountInformationFragment extends Fragment {
 
 
+
     public AccountInformationFragment() {
         // Required empty public constructor
     }
@@ -26,5 +27,7 @@ public class AccountInformationFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account_information, container, false);
     }
+
+
 
 }
