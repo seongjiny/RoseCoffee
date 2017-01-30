@@ -1,13 +1,19 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.OrderDetailFragment">
+    tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.OrderDetailFragment"
+    android:padding="10dp"
+    >
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_drink"
+        android:textAlignment="center"
+        android:textSize="20sp"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,9 +37,14 @@
                 android:layout_centerVertical="true" />
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:id="@+id/add_drink_name_spinner"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
-
+                android:background="@android:drawable/editbox_dropdown_light_frame"
+                android:padding="4dp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:layout_toRightOf="@+id/add_drink_name_image"
                 />
 
         </RelativeLayout>
@@ -42,12 +53,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingLeft="20dp">
-
+            <ImageView
+                android:id="@+id/add_drink_size_image"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:src="@drawable/add_drink_name"
+                android:layout_centerVertical="true" />
             <Spinner
-                android:layout_width="wrap_content"
+                android:id="@+id/add_drink_size_spinner"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
-
+                android:background="@android:drawable/editbox_dropdown_light_frame"
+                android:padding="4dp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:layout_toRightOf="@+id/add_drink_size_image"
                 />
+
 
         </RelativeLayout>
 

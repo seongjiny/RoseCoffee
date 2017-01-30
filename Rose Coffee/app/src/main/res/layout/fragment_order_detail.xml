@@ -15,7 +15,7 @@
         android:background="@drawable/border_style"
         android:clickable="true"
         >
-        <ImageButton
+        <ImageView
             android:id="@+id/order_detail_add_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
