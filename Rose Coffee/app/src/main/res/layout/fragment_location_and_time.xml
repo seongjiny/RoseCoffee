@@ -20,17 +20,17 @@
             android:paddingLeft="20dp">
 
             <ImageView
-                android:id="@+id/cus_main_building_img"
+                android:id="@+id/add_drink_name_image"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:src="@drawable/cus_main_building_img"
                 android:layout_centerVertical="true" />
 
             <EditText
-                android:id="@+id/cus_main_building_text"
+                android:id="@+id/add_drink_name_edit_text"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cus_main_building_img"
+                android:layout_toRightOf="@+id/add_drink_name_image"
                 android:text="@string/building_name"
                 android:layout_centerVertical="true"
                 android:textAlignment="center"
@@ -50,17 +50,17 @@
             android:paddingLeft="20dp">
 
             <ImageView
-                android:id="@+id/cus_main_room_img"
+                android:id="@+id/add_drink_size_image"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:src="@drawable/cus_main_room_img"
                 android:layout_centerVertical="true" />
 
             <EditText
-                android:id="@+id/cus_main_room_text"
+                android:id="@+id/add_drink_size"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cus_main_room_img"
+                android:layout_toRightOf="@+id/add_drink_size_image"
                 android:text="@string/room_name"
                 android:layout_centerVertical="true"
                 android:textAlignment="center"
