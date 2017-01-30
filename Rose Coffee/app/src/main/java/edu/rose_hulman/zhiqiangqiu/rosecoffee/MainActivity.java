@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    Log.d("ddd", "Auth with user"+ user);
                     switchToMyDeliveryFragment("users/" + user.getUid());
                 } else {
                     mFragmentTransaction.replace(R.id.main, new LoginFragment(), "Login").commit();
@@ -131,10 +132,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
