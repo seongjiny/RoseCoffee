@@ -38,4 +38,5 @@
     <string name="cus_main_building_hint">Building Name (Olin)</string>
     <string name="order_detail_add_drink">Add a drink</string>
     <string name="order_detail_add_snack">Add a snack</string>
+    <string name="login_with_rosefire">LOGIN WITH ROSEFIRE</string>
 </resources>

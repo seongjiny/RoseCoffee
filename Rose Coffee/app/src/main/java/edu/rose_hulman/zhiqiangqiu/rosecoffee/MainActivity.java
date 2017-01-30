@@ -1,7 +1,9 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -9,12 +11,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AboutUsFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AccountInformationFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.CustomerMainFragment;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.LoginFragment;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.MyDeliveryFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment;
 
 /*
@@ -24,10 +36,15 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    DrawerLayout mDrawerLayout;
-    NavigationView mNavigationView;
-    FragmentManager mFragmentManager;
-    FragmentTransaction mFragmentTransaction;
+    public static final String FIREBASE_PATH = "FIREBASE_PATH";
+
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private OnCompleteListener mOnCompleteListener;
 
 
     @Override
@@ -36,9 +53,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        initializeListeners();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
 
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -48,49 +65,43 @@ public class MainActivity extends AppCompatActivity
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView, new CustomerMainFragment()).commit();
 
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                mDrawerLayout.closeDrawers();
-
-
-
-                if (menuItem.getItemId() == R.id.nav_about_us) {
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new AboutUsFragment()).commit();
-
-                }
-
-                if (menuItem.getItemId() == R.id.nav_setting) {
-
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new SettingFragment()).commit();
-                }
-
-                if (menuItem.getItemId() == R.id.nav_my_delivery) {
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new CustomerMainFragment()).commit();
-                }
-
-                if (menuItem.getItemId() == R.id.nav_account_info) {
-
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new AccountInformationFragment()).commit();
-                }
-
-                return false;
-            }
-
-        });
-
-        /**
-         * Setup Drawer Toggle of the Toolbar
-         */
-
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
+        //Setup Drawer Toggle of the Toolbar
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name,
                 R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+    }
+
+    private void initializeListeners() {
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    switchToMyDeliveryFragment("users/" + user.getUid());
+                } else {
+                    mFragmentTransaction.replace(R.id.main, new LoginFragment(), "Login").commit();
+                }
+            }
+        };
+        mOnCompleteListener = new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (!task.isSuccessful()) {
+                    showLoginError("Login failed");
+                }
+            }
+        };
+    }
+
+    private void switchToMyDeliveryFragment(String path) {
+        DatabaseReference user = FirebaseDatabase.getInstance().getReference().child(path);
+        Fragment myDeliveryFragment = new MyDeliveryFragment();
+        Bundle args = new Bundle();
+        args.putString(FIREBASE_PATH, path);
+        myDeliveryFragment.setArguments(args);
+        mFragmentTransaction.replace(R.id.main, myDeliveryFragment, "MyDelivery").commit();
     }
 
     @Override
@@ -102,6 +113,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,21 +141,34 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_my_delivery) {
-            // Handle the camera action
-        } else if (id == R.id.nav_account_info) {
-
-        } else if (id == R.id.nav_setting) {
-
-        } else if (id == R.id.nav_about_us) {
-
+        switch (item.getItemId()){
+            case R.id.nav_my_delivery:
+                mFragmentTransaction.replace(R.id.containerView,
+                        new CustomerMainFragment()).commit();
+                break;
+            case R.id.nav_account_info:
+                mFragmentTransaction.replace(R.id.containerView,
+                        new AccountInformationFragment()).commit();
+                break;
+            case R.id.nav_about_us:
+                mFragmentTransaction.replace(R.id.containerView,
+                        new AboutUsFragment()).commit();
+                break;
+            case R.id.nav_setting:
+                mFragmentTransaction.replace(R.id.containerView,
+                        new SettingFragment()).commit();
+                break;
+            default:
+                Log.d("ddd", "Nav bar item seleted error");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
+    }
+
+    private void showLoginError(String message) {
+        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentByTag("Login");
+        loginFragment.onLoginError(message);
     }
 }
