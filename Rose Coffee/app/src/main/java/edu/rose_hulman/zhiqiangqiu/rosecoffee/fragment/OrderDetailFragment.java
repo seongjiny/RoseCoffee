@@ -1,12 +1,16 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
-import android.content.Context;
-import android.net.Uri;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
@@ -19,6 +23,8 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
  * create an instance of this fragment.
  */
 public class OrderDetailFragment extends Fragment {
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -65,9 +71,40 @@ public class OrderDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_detail, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
+
+
+        RelativeLayout button = (RelativeLayout) view.findViewById(R.id.order_detail_add_drink_layout);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+
+
+        return view;
+    }
+    public final void showDialog(){
+        final Dialog mydialog = new Dialog(getActivity());
+        mydialog.setTitle("testing");
+        mydialog.setContentView(R.layout.dialog_add_drink);
+        Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_name_spinner);
+        Spinner sizeSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_size_spinner);
+        String[] drinkNames = new String[]{"Strawberry Frappuccino","Cappuccino","Cafe Latte"};
+        String[] sizeNames = new String[]{"Venti","Grande","Tall"};
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,drinkNames);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,sizeNames);
+        nameSpinner.setAdapter(adapter1);
+        sizeSpinner.setAdapter(adapter2);
+        mydialog.show();
+
     }
 
+    public void onClick(View v){
+        showDialog();
+    }
 //    // TODO: Rename method, update argument and hook method into UI event
 //    public void onButtonPressed(Uri uri) {
 //        if (mListener != null) {
