@@ -1,5 +1,6 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -28,15 +29,18 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.CustomerMainFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.LoginFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.MyDeliveryFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment;
+import edu.rosehulman.rosefire.Rosefire;
+import edu.rosehulman.rosefire.RosefireResult;
 
 /*
 ** Author: Seongjin Yoon and Zhiqiang Qiu
 **
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LoginFragment.OnLoginListener{
 
     public static final String FIREBASE_PATH = "FIREBASE_PATH";
+    private static final int RC_ROSEFIRE_LOGIN = 1;
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -53,23 +57,20 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        initializeListeners();
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        mNavigationView.setNavigationItemSelectedListener(this);
-
+        mAuth = FirebaseAuth.getInstance();
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView, new CustomerMainFragment()).commit();
-
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
         //Setup Drawer Toggle of the Toolbar
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name,
                 R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+
+        //To identify if the user is already log in
+        initializeListeners();
     }
 
     private void initializeListeners() {
@@ -82,7 +83,8 @@ public class MainActivity extends AppCompatActivity
                     Log.d("ddd", "Auth with user"+ user);
                     switchToMyDeliveryFragment("users/" + user.getUid());
                 } else {
-                    mFragmentTransaction.replace(R.id.main, new LoginFragment(), "Login").commit();
+                    Log.d("ddd", "Go to Login page");
+                    mFragmentTransaction.replace(R.id.containerView, new LoginFragment(), "Login").commit();
                 }
             }
         };
@@ -103,6 +105,40 @@ public class MainActivity extends AppCompatActivity
         args.putString(FIREBASE_PATH, path);
         myDeliveryFragment.setArguments(args);
         mFragmentTransaction.replace(R.id.main, myDeliveryFragment, "MyDelivery").commit();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_ROSEFIRE_LOGIN) {
+            RosefireResult result = Rosefire.getSignInResultFromIntent(data);
+            if (result.isSuccessful()) {
+                mAuth.signInWithCustomToken(result.getToken()).addOnCompleteListener(this,mOnCompleteListener);
+            } else {
+                showLoginError("Rosefire sign in failed.");
+            }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAuthStateListener != null) {
+            mAuth.removeAuthStateListener(mAuthStateListener);
+        }
+    }
+
+    @Override
+    public void onRosefireLogin() {
+        Intent signInIntent = Rosefire.getSignInIntent(this, getString(R.string.rosefire_key));
+        startActivityForResult(signInIntent, RC_ROSEFIRE_LOGIN);
     }
 
     @Override
