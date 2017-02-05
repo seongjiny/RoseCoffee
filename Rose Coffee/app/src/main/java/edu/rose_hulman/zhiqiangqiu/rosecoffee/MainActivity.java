@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
                     switchToMyDeliveryFragment("users/" + user.getUid());
                 } else {
                     Log.d("ddd", "Go to Login page");
-                    mFragmentTransaction.replace(R.id.containerView, new LoginFragment(), "Login").commit();
+                    mFragmentTransaction.replace(R.id.main, new LoginFragment(), "Login").commit();
                 }
             }
         };

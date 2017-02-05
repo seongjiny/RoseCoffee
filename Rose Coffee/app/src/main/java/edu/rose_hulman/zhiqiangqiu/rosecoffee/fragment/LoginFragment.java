@@ -8,9 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-
-import com.google.android.gms.common.SignInButton;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
@@ -21,14 +18,10 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
  */
 public class LoginFragment extends Fragment{
 
-
-    private EditText mPasswordView;
-    private EditText mEmailView;
     private View mLoginForm;
     private View mProgressSpinner;
     private boolean mLoggingIn;
     private OnLoginListener mListener;
-    private SignInButton mGoogleSignInButton;
 
     public LoginFragment() {
     }
@@ -44,6 +37,9 @@ public class LoginFragment extends Fragment{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
+        mProgressSpinner = rootView.findViewById(R.id.login_progress);
+        mLoginForm = rootView.findViewById(R.id.login_form);
+
         View rosefireLoginButton = rootView.findViewById(R.id.rosefire_sign_in_button);
         rosefireLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +54,6 @@ public class LoginFragment extends Fragment{
         if (mLoggingIn) {
             return;
         }
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
 
         showProgress(true);
         mLoggingIn = true;
@@ -70,7 +64,7 @@ public class LoginFragment extends Fragment{
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(mEmailView.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(mLoginForm.getWindowToken(), 0);
     }
 
     public void onLoginError(String message) {
@@ -88,7 +82,7 @@ public class LoginFragment extends Fragment{
     private void showProgress(boolean show) {
         mProgressSpinner.setVisibility(show ? View.VISIBLE : View.GONE);
         mLoginForm.setVisibility(show ? View.GONE : View.VISIBLE);
-        mGoogleSignInButton.setVisibility(show ? View.GONE : View.VISIBLE);
+
     }
 
     @Override
