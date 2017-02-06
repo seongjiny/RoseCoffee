@@ -1,63 +1,95 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
-import java.util.ArrayList;
-
 /**
  * Created by yoons1 on 1/15/2017.
  */
 
-public class User implements Customer,DeliveryPerson{
-    private int mUserID;
-    private boolean mIsCustomer;
-    private String mName;
-    private String mPhoneNumber;
-    private Order mDefaultOrder;
-    private ArrayList<Order> mOrderHistory;
-    public User(String userName){
-        mName = userName; // this is temporary user's name before he/she changes his/her name from the SettingFragment
+public class User {
+    public static final String INCOMPLETE = "IMCOMPLETE";
+    public static final String TO_CLAIM = "TO_CLAIM";
+    public static final String CLAIMED = "CLAIMED";
+    public static final String DELIVERED = "DELIVERED";
+    public static final String RECEIVED = "Received";
+
+
+    private String uid;
+    private boolean is_delivery;
+    private String name;
+    private String email;
+    private String phone;
+    private String state = INCOMPLETE;
+
+    public User() {
+        //Empty constructor
+    }
+
+    public boolean isToClaim() {
+        return state == TO_CLAIM;
+    }
+
+    public boolean isDelivered() {
+        return state == DELIVERED;
+    }
+
+    public boolean isReceived() {
+        return state == RECEIVED;
+    }
+
+    public boolean isClaimed() {
+        return state == CLAIMED;
+    }
+
+    public boolean isIncomplete() {
+        return state == INCOMPLETE;
+    }
+
+    public void changeState(String state) {
+        this.state = state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     //user related method (generate ID, password related, authentication, etc)
 
-
-
     public boolean ismIsCustomer() {
-        return mIsCustomer;
+        return is_delivery;
     }
 
-    public void setmIsCustomer(boolean mIsCustomer) {
-        this.mIsCustomer = mIsCustomer;
+    public void setmIsCustomer(boolean mIsDelivery) {
+        this.is_delivery = mIsDelivery;
     }
 
-    public String getmName() {
-        return mName;
+    public String getName() {
+        return name;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getmPhoneNumber() {
-        return mPhoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setmPhoneNumber(String mPhoneNumber) {
-        this.mPhoneNumber = mPhoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public Order getmDefaultOrder() {
-        return mDefaultOrder;
+    public String getEmail() {
+        return email;
     }
 
-    public void setmDefaultOrder(Order mDefaultOrder) {
-        this.mDefaultOrder = mDefaultOrder;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public ArrayList<Order> getmOrderHistory() {
-        return mOrderHistory;
+    public String getUid() {
+        return uid;
     }
 
-    public void setmOrderHistory(ArrayList<Order> mOrderHistory) {
-        this.mOrderHistory = mOrderHistory;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

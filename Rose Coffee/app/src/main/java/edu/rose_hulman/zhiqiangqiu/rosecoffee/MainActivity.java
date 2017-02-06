@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView mNavigationView;
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
+    private User mUser;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private OnCompleteListener mOnCompleteListener;
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        mUser = new User();
         mAuth = FirebaseAuth.getInstance();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -68,6 +70,10 @@ public class MainActivity extends AppCompatActivity
 
         //To identify if the user is already log in
         initializeListeners();
+    }
+
+    public User getmUser() {
+        return mUser;
     }
 
     private void initializeListeners() {
@@ -101,6 +107,7 @@ public class MainActivity extends AppCompatActivity
     private void switchToMyDeliveryFragment(String path) {
         mToolbar.setVisibility(View.VISIBLE);
         DatabaseReference user = FirebaseDatabase.getInstance().getReference().child(path);
+//        user.addListenerForSingleValueEvent();
         Fragment myDeliveryFragment = new MyDeliveryFragment();
         Bundle args = new Bundle();
         args.putString(FIREBASE_PATH, path);
@@ -117,6 +124,13 @@ public class MainActivity extends AppCompatActivity
             RosefireResult result = Rosefire.getSignInResultFromIntent(data);
             if (result.isSuccessful()) {
                 mAuth.signInWithCustomToken(result.getToken()).addOnCompleteListener(this, mOnCompleteListener);
+                mUser.setUid(result.getUsername());
+                mUser.setName(result.getName());
+                mUser.setEmail(result.getEmail());
+                mUser.setmIsCustomer(true);
+                mUser.setPhone("");
+                DatabaseReference user = FirebaseDatabase.getInstance().getReference().child("users/"+result.getUsername());
+                user.setValue(mUser);
             } else {
                 showLoginError("Rosefire sign in failed.");
             }

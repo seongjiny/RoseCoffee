@@ -58,7 +58,7 @@
 
         <TextView
             android:text="First name:"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -76,7 +76,7 @@
 
         <TextView
             android:text="Zhiqiang"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/firstname_edit_imagebutton"
@@ -86,7 +86,7 @@
 
         <TextView
             android:text="Last name:"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -104,7 +104,7 @@
 
         <TextView
             android:text="Qiu"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/lastname_edit_imagebutton"
@@ -114,7 +114,7 @@
 
         <TextView
             android:text="Phone number:"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -132,7 +132,7 @@
 
         <TextView
             android:text="(812) 241-5966"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/phone_number_edit_imagebutton"
@@ -140,23 +140,14 @@
             android:id="@+id/phone_number_content_textview"
             android:layout_alignTop="@+id/phone_number_index_textview" />
 
-        <TextView
-            android:text="Payment method:"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:id="@+id/payment_index_textview"
-            android:layout_below="@+id/phone_number_index_textview" />
-
-        <TextView
-            android:text="Default Location:"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:id="@+id/default_location_index_textview"
-            android:layout_below="@+id/payment_index_textview" />
+        <!--<TextView-->
+            <!--android:text="Payment method:"-->
+            <!--android:textSize="20sp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:id="@+id/payment_index_textview"-->
+            <!--android:layout_below="@+id/phone_number_index_textview" />-->
 
 
 
