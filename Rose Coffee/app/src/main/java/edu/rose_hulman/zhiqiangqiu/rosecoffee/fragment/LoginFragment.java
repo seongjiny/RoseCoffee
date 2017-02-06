@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,10 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
 /**
  * A lot of code are copied and modified from Dr. Boutell's class example.
- *
+ * <p>
  * Created by JerryQiu on 1/29/17.
  */
-public class LoginFragment extends Fragment{
+public class LoginFragment extends Fragment {
 
     private View mLoginForm;
     private View mProgressSpinner;
@@ -52,10 +53,12 @@ public class LoginFragment extends Fragment{
 
     private void loginWithRosefire() {
         if (mLoggingIn) {
+            Log.d("ddd", "I don't know why I come here");
             return;
         }
 
         showProgress(true);
+        Log.d("ddd", "Show progress is done");
         mLoggingIn = true;
         mListener.onRosefireLogin();
         hideKeyboard();
@@ -103,7 +106,6 @@ public class LoginFragment extends Fragment{
     }
 
     public interface OnLoginListener {
-
         void onRosefireLogin();
     }
 }
