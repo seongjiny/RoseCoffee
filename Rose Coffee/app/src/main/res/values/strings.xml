@@ -41,5 +41,8 @@
     <string name="order_detail_add_snack">Add a snack</string>
     <string name="login_with_rosefire">LOGIN WITH ROSEFIRE</string>
     <string name="add_drink">Add a new drink</string>
+    <string name="add_drink_comment_hint">Comment on drink</string>
+    <string name="add_snack">Add a new Snack</string>
+    <string name="add_snack_comment_hint">Comment on Snack</string>
 
 </resources>

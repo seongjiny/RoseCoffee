@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         initializeListeners();
     }
 
-    public User getmUser() {
+    public User getUser() {
         return mUser;
     }
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
                 mUser.setUid(result.getUsername());
                 mUser.setName(result.getName());
                 mUser.setEmail(result.getEmail());
-                mUser.setmIsCustomer(true);
+                mUser.setIsCustomer(true);
                 mUser.setPhone("");
                 DatabaseReference user = FirebaseDatabase.getInstance().getReference().child("users/"+result.getUsername());
                 user.setValue(mUser);

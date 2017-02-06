@@ -1,10 +1,30 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
+
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
 /**
- * Created by JerryQiu on 1/29/17.
+ * A simple {@link Fragment} subclass.
  */
 public class DeliveryMainFragment extends Fragment {
+
+
+    public DeliveryMainFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_delivery_main, container, false);
+    }
 
 }

@@ -33,6 +33,7 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/order_detail_add_snack_layout"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
