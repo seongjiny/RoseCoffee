@@ -13,7 +13,7 @@ public class User {
 
 
     private String uid;
-    private boolean isCustomer;
+    private boolean is_customer;
     private String name;
     private String email;
     private String phone;
@@ -54,11 +54,11 @@ public class User {
     //user related method (generate ID, password related, authentication, etc)
 
     public boolean isCustomer() {
-        return isCustomer;
+        return is_customer;
     }
 
-    public void setIsCustomer(boolean mIsDelivery) {
-        this.isCustomer = mIsDelivery;
+    public void setIsCustomer(boolean isCustomer) {
+        this.is_customer = is_customer;
     }
 
     public String getName() {

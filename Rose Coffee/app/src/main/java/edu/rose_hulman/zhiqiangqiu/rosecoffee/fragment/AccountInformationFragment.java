@@ -12,14 +12,16 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.User;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AccountInformationFragment extends Fragment {
 
-
+    private User mUser;
     private Switch mIsDeliverySwitch;
 
     public AccountInformationFragment() {
@@ -33,13 +35,14 @@ public class AccountInformationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account_information, container, false);
         mIsDeliverySwitch = (Switch) view.findViewById(R.id.is_delivering_switch);
+        mUser = ((MainActivity) getActivity()).getUser();
         mIsDeliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be true if the switch is in the On position
                 if (isChecked) {
-//                    User user = (MainActivity) getActivity().getUser();
+                    mUser.setmIsCustomer(true);
                 } else {
-                    
+
                 }
             }
         });
