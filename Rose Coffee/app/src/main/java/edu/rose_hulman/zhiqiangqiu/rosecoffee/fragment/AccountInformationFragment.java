@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
@@ -18,6 +20,7 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 public class AccountInformationFragment extends Fragment {
 
 
+    private Switch mIsDeliverySwitch;
 
     public AccountInformationFragment() {
         // Required empty public constructor
@@ -28,13 +31,28 @@ public class AccountInformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_information, container, false);
+        View view = inflater.inflate(R.layout.fragment_account_information, container, false);
+        mIsDeliverySwitch = (Switch) view.findViewById(R.id.is_delivering_switch);
+        mIsDeliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be true if the switch is in the On position
+                if (isChecked) {
+//                    User user = (MainActivity) getActivity().getUser();
+                } else {
+                    
+                }
+            }
+        });
+
+
+
+        return view;
     }
 
-    public final void showDialog(){
+    public final void showDialog(String name){
         final Dialog mydialog = new Dialog(getActivity());
-        mydialog.setTitle("testing");
-        mydialog.setContentView(R.layout.dialog_add_drink);
+        mydialog.setTitle("Edit "+name);
+        mydialog.setContentView(R.layout.dialog_edit_account_info);
         Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_name_spinner);
         Spinner sizeSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_size_spinner);
         String[] drinkNames = new String[]{"Strawberry Frappuccino","Cappuccino","Cafe Latte"};
@@ -44,7 +62,6 @@ public class AccountInformationFragment extends Fragment {
         nameSpinner.setAdapter(adapter1);
         sizeSpinner.setAdapter(adapter2);
         mydialog.show();
-
     }
 
 
