@@ -53,5 +53,6 @@
     <string name="order">Order :</string>
     <string name="cus_confirm_order" />
     <string name="confrim_status">Waiting for order to be claimed...</string>
+    <string name="order_item_name" />
 
 </resources>

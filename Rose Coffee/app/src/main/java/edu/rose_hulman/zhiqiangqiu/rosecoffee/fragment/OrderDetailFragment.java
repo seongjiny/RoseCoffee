@@ -131,7 +131,7 @@ public class OrderDetailFragment extends Fragment {
     public final void showAddSnackDialog(){
         final Dialog mydialog = new Dialog(getActivity());
         mydialog.setContentView(R.layout.dialog_add_snack);
-        Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_snack_name_spinner);
+        final Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_snack_name_spinner);
         String[] drinkNames = new String[]{"Muffin","Apple Sauce","Chips"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,drinkNames);
         nameSpinner.setAdapter(adapter1);
@@ -139,7 +139,7 @@ public class OrderDetailFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("dd","ok");
+                Log.d("AA",nameSpinner.getSelectedItem()+"");
                 mydialog.dismiss();
             }
         });
