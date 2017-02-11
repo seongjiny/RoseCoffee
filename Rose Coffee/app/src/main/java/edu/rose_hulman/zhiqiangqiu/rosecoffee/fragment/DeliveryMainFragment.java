@@ -11,10 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
-import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.dummy.DummyContent;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.dummy.DummyContent.DummyItem;
-
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -24,9 +21,7 @@ import java.util.List;
  */
 public class DeliveryMainFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -37,7 +32,6 @@ public class DeliveryMainFragment extends Fragment {
     public DeliveryMainFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static DeliveryMainFragment newInstance(int columnCount) {
         DeliveryMainFragment fragment = new DeliveryMainFragment();
@@ -70,7 +64,7 @@ public class DeliveryMainFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new DeliveryMainListRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+//            recyclerView.setAdapter(new DeliveryMainListRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }
