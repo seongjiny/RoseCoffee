@@ -58,7 +58,7 @@ public class User {
     }
 
     public void setIsCustomer(boolean isCustomer) {
-        this.is_customer = is_customer;
+        this.is_customer = isCustomer;
     }
 
     public String getName() {

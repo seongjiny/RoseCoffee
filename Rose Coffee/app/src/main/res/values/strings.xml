@@ -44,5 +44,15 @@
     <string name="add_drink_comment_hint">Comment on drink</string>
     <string name="add_snack">Add a new Snack</string>
     <string name="add_snack_comment_hint">Comment on Snack</string>
+    <string name="cus_confirm_price">0.00</string>
+    <string name="price">Price:</string>
+    <string name="location">Location:</string>
+    <string name="cus_confirm_location" />
+    <string name="time">Time :</string>
+    <string name="cus_confirm_time" />
+    <string name="order">Order :</string>
+    <string name="cus_confirm_order" />
+    <string name="confrim_status">Waiting for order to be claimed...</string>
+    <string name="order_item_name" />
 
 </resources>
