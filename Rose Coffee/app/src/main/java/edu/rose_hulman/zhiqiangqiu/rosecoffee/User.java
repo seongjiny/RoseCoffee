@@ -1,64 +1,32 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Created by yoons1 on 1/15/2017.
  */
 
 public class User {
-    public static final String INCOMPLETE = "IMCOMPLETE";
-    public static final String TO_CLAIM = "TO_CLAIM";
-    public static final String CLAIMED = "CLAIMED";
-    public static final String DELIVERED = "DELIVERED";
-    public static final String RECEIVED = "Received";
-
 
     private String uid;
-    private boolean is_customer;
+    private boolean iscustomer;
     private String name;
     private String email;
     private String phone;
-    private String state = INCOMPLETE;
 
     public User() {
         //Empty constructor
     }
 
-    public boolean isToClaim() {
-        return state == TO_CLAIM;
-    }
-
-    public boolean isDelivered() {
-        return state == DELIVERED;
-    }
-
-    public boolean isReceived() {
-        return state == RECEIVED;
-    }
-
-    public boolean isClaimed() {
-        return state == CLAIMED;
-    }
-
-    public boolean isIncomplete() {
-        return state == INCOMPLETE;
-    }
-
-    public void changeState(String state) {
-        this.state = state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
 
     //user related method (generate ID, password related, authentication, etc)
 
     public boolean isCustomer() {
-        return is_customer;
+        return iscustomer;
     }
 
     public void setIsCustomer(boolean isCustomer) {
-        this.is_customer = isCustomer;
+        this.iscustomer = isCustomer;
     }
 
     public String getName() {
@@ -84,7 +52,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    @Exclude
     public String getUid() {
         return uid;
     }

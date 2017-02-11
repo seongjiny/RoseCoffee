@@ -20,8 +20,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AboutUsFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AccountInformationFragment;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView mNavigationView;
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
-    private User mUser;
+    private User mUser=null;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private OnCompleteListener mOnCompleteListener;
 
@@ -57,7 +60,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        mUser = new User();
         mAuth = FirebaseAuth.getInstance();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -83,14 +85,31 @@ public class MainActivity extends AppCompatActivity
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.d("ddd", "Auth with user" + user);
+                    Log.d("ddd", "Auth with user " + user);
+                    if(mUser==null){
+                        FirebaseDatabase db=FirebaseDatabase.getInstance();
+                        DatabaseReference ref = db.getReference();
+                        mUser = new User();
+                        ref.child("users").child(user.getUid())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        mUser = dataSnapshot.getValue(User.class);
+                                        Log.d("USER",mUser.getName()+"");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                        Log.d("USER2",mUser.getName()+"");
+                    }
                     switchToMyDeliveryFragment("users/" + user.getUid());
+
                 } else {
                     Log.d("ddd", "Go to Login page");
-                    mToolbar.setVisibility(View.GONE);
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.content_main, new LoginFragment(),"Login");
-                    ft.commit();
+                    switchToLoginPage();
                 }
             }
         };
@@ -102,6 +121,13 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         };
+    }
+
+    private void switchToLoginPage() {
+        mToolbar.setVisibility(View.GONE);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_main, new LoginFragment(),"Login");
+        ft.commit();
     }
 
     private void switchToMyDeliveryFragment(String path) {
@@ -120,6 +146,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mUser = new User();
         if (requestCode == RC_ROSEFIRE_LOGIN) {
             RosefireResult result = Rosefire.getSignInResultFromIntent(data);
             if (result.isSuccessful()) {
@@ -182,10 +209,20 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_logout:
+                mAuth.signOut();
+                mUser=new User();
+                switchToLoginPage();
+                return true;
+            case R.id.action_settings:
+                Log.d("FF",mUser+"");
+                if(mUser!=null){
+                    Log.d("FF", mUser.getName()+"");
+                }
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -219,6 +256,8 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return false;
     }
+
+
 
     private void showLoginError(String message) {
         LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentByTag("Login");

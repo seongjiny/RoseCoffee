@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "135644515827",
+    "firebase_url": "https://rose-coffee-on-android-2b7c6.firebaseio.com",
+    "project_id": "rose-coffee-on-android-2b7c6",
+    "storage_bucket": "rose-coffee-on-android-2b7c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135644515827:android:bc24661ee9e65a76",
+        "android_client_info": {
+          "package_name": "edu.rose_hulman.zhiqiangqiu.rosecoffee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135644515827-edjco8fth1gmfldn7qq1huchqek7lt31.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOKEqbGDVE8bWyfuzs27vvY2NpXxlLpu8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

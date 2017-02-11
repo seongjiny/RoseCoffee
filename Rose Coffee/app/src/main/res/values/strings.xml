@@ -54,5 +54,6 @@
     <string name="cus_confirm_order" />
     <string name="confrim_status">Waiting for order to be claimed...</string>
     <string name="order_item_name" />
+    <string name="action_logout">Log Out</string>
 
 </resources>
