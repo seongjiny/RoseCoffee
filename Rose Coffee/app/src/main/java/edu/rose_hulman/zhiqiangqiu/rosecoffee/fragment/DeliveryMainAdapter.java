@@ -6,22 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.ItemFragment.OnListFragmentInteractionListener;
-import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.dummy.DummyContent.DummyItem;
-
 import java.util.List;
+
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.DummyContent.DummyItem;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ *
  * TODO: Replace the implementation with code for your data type.
  */
-public class DeliveryMainListRecyclerViewAdapter extends RecyclerView.Adapter<DeliveryMainListRecyclerViewAdapter.ViewHolder> {
+public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final DeliveryMainFragment.OnListFragmentInteractionListener mListener;
 
-    public DeliveryMainListRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public DeliveryMainAdapter(List<DummyItem> items, DeliveryMainFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -29,7 +29,7 @@ public class DeliveryMainListRecyclerViewAdapter extends RecyclerView.Adapter<De
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item, parent, false);
+                .inflate(R.layout.fragment_delivery_main_container, parent, false);
         return new ViewHolder(view);
     }
 

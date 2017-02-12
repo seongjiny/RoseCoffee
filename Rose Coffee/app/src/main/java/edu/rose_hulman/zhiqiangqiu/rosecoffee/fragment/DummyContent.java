@@ -1,4 +1,4 @@
-package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.dummy;
+package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;

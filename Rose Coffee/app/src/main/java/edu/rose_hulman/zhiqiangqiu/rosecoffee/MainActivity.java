@@ -1,6 +1,7 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -29,8 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AboutUsFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AccountInformationFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.CustomerMainFragment;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.DeliveryMainFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.LoginFragment;
-import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.MyDeliveryFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment;
 import edu.rosehulman.rosefire.Rosefire;
 import edu.rosehulman.rosefire.RosefireResult;
@@ -51,7 +52,9 @@ public class MainActivity extends AppCompatActivity
     private Toolbar mToolbar;
     private User mUser=null;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private SharedPreferences mSharedPreferences;
     private OnCompleteListener mOnCompleteListener;
+    private boolean mIsCustomer = true;
 
 
     @Override
@@ -134,12 +137,17 @@ public class MainActivity extends AppCompatActivity
         mToolbar.setVisibility(View.VISIBLE);
         DatabaseReference user = FirebaseDatabase.getInstance().getReference().child(path);
 //        user.addListenerForSingleValueEvent();
-        Fragment myDeliveryFragment = new MyDeliveryFragment();
+        Fragment initialFragment;
+        if (mIsCustomer) {
+            initialFragment = new CustomerMainFragment();
+        } else {
+            initialFragment = new DeliveryMainFragment();
+        }
         Bundle args = new Bundle();
-        args.putString(FIREBASE_PATH, path);
-        myDeliveryFragment.setArguments(args);
+        args.putString(FIREBASE_PATH, mUser.getUid());
+        initialFragment.setArguments(args);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_main, myDeliveryFragment,"myDelivery");
+        ft.replace(R.id.content_main, initialFragment,"myDelivery");
         ft.commit();
     }
 
@@ -233,8 +241,13 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
 
             case R.id.nav_my_delivery:
-                ft.replace(R.id.content_main,
-                        new CustomerMainFragment()).commit();
+                if (mIsCustomer) {
+                    ft.replace(R.id.content_main,
+                            new CustomerMainFragment()).commit();
+                } else {
+                    ft.replace(R.id.content_main,
+                            new DeliveryMainFragment()).commit();
+                }
                 break;
             case R.id.nav_account_info:
                 ft.replace(R.id.content_main,

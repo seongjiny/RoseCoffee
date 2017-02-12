@@ -18,32 +18,13 @@ public class SharedPreferenceUtils {
         SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(Constants.UID_KEY, uid);
-        editor.commit();
+        editor.apply();
     }
 
-//    public static void removeCurrentUser(Context context) {
-//        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Activity.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.remove(Constants.UID_KEY);
-//        editor.apply();
-//    }
-//
-//    public static String getCurrentCourseKey(Context context) {
-//        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Activity.MODE_PRIVATE);
-//        return prefs.getString(Constants.COURSE_KEY, "");
-//    }
-//
-//    public static void setCurrentCourseKey(Context context, String courseKey) {
-//        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Activity.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putString(Constants.COURSE_KEY, courseKey);
-//        editor.commit();
-//    }
-//
-//    public static void removeCurrentCourseKey(Context context) {
-//        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Activity.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.remove(Constants.COURSE_KEY);
-//        editor.apply();
-//    }
+    public static void removeCurrentUser(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(Constants.PREFS, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(Constants.UID_KEY);
+        editor.apply();
+    }
 }
