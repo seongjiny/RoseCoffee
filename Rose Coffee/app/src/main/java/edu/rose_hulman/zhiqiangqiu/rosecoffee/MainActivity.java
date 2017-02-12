@@ -1,7 +1,6 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -50,17 +49,19 @@ public class MainActivity extends AppCompatActivity
     private NavigationView mNavigationView;
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
-    private User mUser=null;
+    private User mUser = null;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private SharedPreferences mSharedPreferences;
     private OnCompleteListener mOnCompleteListener;
-    private boolean mIsCustomer = true;
+//    private SharedPreferences mSharedPreferences;
+//    private SharedPreferenceUtils mSharedPreferenceUtils;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        mSharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+//        mSharedPreferenceUtils = new SharedPreferenceUtils();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mAuth = FirebaseAuth.getInstance();
@@ -98,18 +99,14 @@ public class MainActivity extends AppCompatActivity
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         mUser = dataSnapshot.getValue(User.class);
-                                        Log.d("USER",mUser.getName()+"");
+                                        if (mUser.isCustomer())
+                                        switchToMyDeliveryFragment();
                                     }
 
                                     @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
+                                    public void onCancelled(DatabaseError databaseError) {}
                                 });
-                        Log.d("USER2",mUser.getName()+"");
                     }
-                    switchToMyDeliveryFragment("users/" + user.getUid());
-
                 } else {
                     Log.d("ddd", "Go to Login page");
                     switchToLoginPage();
@@ -133,19 +130,16 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
     }
 
-    private void switchToMyDeliveryFragment(String path) {
+    private void switchToMyDeliveryFragment() {
         mToolbar.setVisibility(View.VISIBLE);
-        DatabaseReference user = FirebaseDatabase.getInstance().getReference().child(path);
-//        user.addListenerForSingleValueEvent();
         Fragment initialFragment;
-        if (mIsCustomer) {
+        if (mUser.isCustomer()) {
+            Log.d("ddd", "Init Jump to Customer Main");
             initialFragment = new CustomerMainFragment();
         } else {
+            Log.d("ddd", "Init Jump to Delivery Main");
             initialFragment = new DeliveryMainFragment();
         }
-        Bundle args = new Bundle();
-        args.putString(FIREBASE_PATH, mUser.getUid());
-        initialFragment.setArguments(args);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_main, initialFragment,"myDelivery");
         ft.commit();
@@ -164,8 +158,8 @@ public class MainActivity extends AppCompatActivity
                 mUser.setEmail(result.getEmail());
                 mUser.setIsCustomer(true);
                 mUser.setPhone("");
-                DatabaseReference user = FirebaseDatabase.getInstance().getReference().child("users/"+result.getUsername());
-                user.setValue(mUser);
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users/"+result.getUsername());
+                userRef.setValue(mUser);
             } else {
                 showLoginError("Rosefire sign in failed.");
             }
@@ -241,10 +235,12 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
 
             case R.id.nav_my_delivery:
-                if (mIsCustomer) {
+                if (mUser.isCustomer()) {
+                    Log.d("ddd", "Nav jump to CustomerMain");
                     ft.replace(R.id.content_main,
                             new CustomerMainFragment()).commit();
                 } else {
+                    Log.d("ddd", "Nav jump to DeliveryMain");
                     ft.replace(R.id.content_main,
                             new DeliveryMainFragment()).commit();
                 }
@@ -264,7 +260,6 @@ public class MainActivity extends AppCompatActivity
             default:
                 Log.d("ddd", "Nav bar item seleted error");
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return false;
