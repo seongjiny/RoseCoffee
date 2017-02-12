@@ -14,7 +14,7 @@
         android:paddingRight="20dp">
 
         <TextView
-            android:text="I am delivering"
+            android:text="I am not delivering"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orderID="@+orderID/is_delivering_index_textview"
