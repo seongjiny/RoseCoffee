@@ -11,25 +11,21 @@ public class Order {
     // orderState = 2 : Customer has received a drink and accepted that order is complete.
     // orderState = 3 : Order is complete, it is stored in Order history.
     // orderState 2 and 3 might be merged later
-    private int mOrderID;
-    private int mCustomerID;
-    private String mBuildingName;
-    private String mRoomNumber; //including its identifier like "G", ex. G310
-    private Time DeliveryTime;
-    private int mDeliveryPersonID;
-    private Rating mRating;
+    private int orderID;
+    private int customerID;
+    private String buildingName;
+    private String roomNumber; //including its identifier like "G", ex. G310
+    private Time deliveryTime;
+    private int deliveryID;
+    private Rating rating;
 
     public Order(int customerID,int deliveryPersonID,String buildingName, String roomNumber){
-        mCustomerID = customerID;
-        mDeliveryPersonID = deliveryPersonID;
-        mBuildingName = buildingName;
-        mRoomNumber = roomNumber;
+        this.customerID = customerID;
+        deliveryID = deliveryPersonID;
+        this.buildingName = buildingName;
+        this.roomNumber = roomNumber;
 
     }
-
-    // we will write more methods like generate OrderID, etc.
-
-
 
     public int getOrderState() {
         return orderState;
@@ -39,59 +35,66 @@ public class Order {
         this.orderState = orderState;
     }
 
-    public int getmOrderID() {
-        return mOrderID;
+    public int getOrderID() {
+        return orderID;
     }
 
-    public void setmOrderID(int mOrderID) {
-        this.mOrderID = mOrderID;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
-    public int getmCustomerID() {
-        return mCustomerID;
+    public int getCustomerID() {
+        return customerID;
     }
 
-    public void setmCustomerID(int mCustomerID) {
-        this.mCustomerID = mCustomerID;
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 
-    public String getmBuildingName() {
-        return mBuildingName;
+    public String getBuildingName() {
+        return buildingName;
     }
 
-    public void setmBuildingName(String mBuildingName) {
-        this.mBuildingName = mBuildingName;
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
     }
 
-    public String getmRoomNumber() {
-        return mRoomNumber;
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setmRoomNumber(String mRoomNumber) {
-        this.mRoomNumber = mRoomNumber;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public Time getDeliveryTime() {
-        return DeliveryTime;
+        return deliveryTime;
     }
 
     public void setDeliveryTime(Time deliveryTime) {
-        DeliveryTime = deliveryTime;
+        this.deliveryTime = deliveryTime;
     }
 
-    public int getmDeliveryPersonID() {
-        return mDeliveryPersonID;
+    public int getDeliveryID() {
+        return deliveryID;
     }
 
-    public void setmDeliveryPersonID(int mDeliveryPersonID) {
-        this.mDeliveryPersonID = mDeliveryPersonID;
+    public void setDeliveryID(int deliveryID) {
+        this.deliveryID = deliveryID;
     }
 
-    public Rating getmRating() {
-        return mRating;
+    public Rating getRating() {
+        return rating;
     }
 
-    public void setmRating(Rating mRating) {
-        this.mRating = mRating;
+    public void setRating(Rating rating) {
+        this.rating = rating;
     }
+
+
+    // we will write more methods like generate OrderID, etc.
+
+
+
+
 }

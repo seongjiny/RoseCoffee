@@ -5,7 +5,7 @@
     tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment">
 
     <TextView
-        android:id="@+id/setting_title"
+        android:orderID="@+orderID/setting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/setting_title"
@@ -13,20 +13,20 @@
         android:textSize="22sp"
         />
     <TextView
-        android:id="@+id/setting_content"
+        android:orderID="@+orderID/setting_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/setting_content"
-        android:layout_below="@+id/setting_title"
+        android:layout_below="@+orderID/setting_title"
         android:textSize="16sp"
         android:layout_marginLeft="40dp"
         />
     <Switch
-        android:id="@+id/receive_notification_switch"
+        android:orderID="@+orderID/receive_notification_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_below="@+id/setting_title"
-        android:layout_toRightOf="@+id/setting_content"
+        android:layout_below="@+orderID/setting_title"
+        android:layout_toRightOf="@+orderID/setting_content"
         />
 </RelativeLayout>

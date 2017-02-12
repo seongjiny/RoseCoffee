@@ -3,22 +3,22 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_my_delivery"
+            android:orderID="@+orderID/nav_my_delivery"
             android:icon="@drawable/ic_home_black_48dp"
             android:title="@string/nav_bar_my_delivery_tag" />
         <item
-            android:id="@+id/nav_account_info"
+            android:orderID="@+orderID/nav_account_info"
             android:icon="@drawable/ic_account_box_black_48dp"
             android:title="Account Info" />
         <item
-            android:id="@+id/nav_setting"
+            android:orderID="@+orderID/nav_setting"
             android:icon="@drawable/ic_settings_black_48dp"
             android:title="Setting" />
     </group>
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_about_us"
+            android:orderID="@+orderID/nav_about_us"
             android:icon="@drawable/ic_info_black_48dp"
             android:title="About Us" />
     </group>

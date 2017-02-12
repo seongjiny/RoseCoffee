@@ -20,17 +20,17 @@
             android:paddingLeft="20dp">
 
             <ImageView
-                android:id="@+id/add_drink_name_image"
+                android:orderID="@+orderID/add_drink_name_image"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:src="@drawable/cus_main_building_img"
                 android:layout_centerVertical="true" />
 
             <EditText
-                android:id="@+id/add_drink_name_edit_text"
+                android:orderID="@+orderID/add_drink_name_edit_text"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/add_drink_name_image"
+                android:layout_toRightOf="@+orderID/add_drink_name_image"
                 android:text="@string/building_name"
                 android:layout_centerVertical="true"
                 android:textAlignment="center"
@@ -50,17 +50,17 @@
             android:paddingLeft="20dp">
 
             <ImageView
-                android:id="@+id/add_drink_size_image"
+                android:orderID="@+orderID/add_drink_size_image"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:src="@drawable/cus_main_room_img"
                 android:layout_centerVertical="true" />
 
             <EditText
-                android:id="@+id/add_drink_size"
+                android:orderID="@+orderID/add_drink_size"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/add_drink_size_image"
+                android:layout_toRightOf="@+orderID/add_drink_size_image"
                 android:text="@string/room_name"
                 android:layout_centerVertical="true"
                 android:textAlignment="center"
@@ -88,7 +88,7 @@
 
 
         <TimePicker
-            android:id="@+id/cus_main_time_picker"
+            android:orderID="@+orderID/cus_main_time_picker"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
