@@ -18,7 +18,7 @@
 
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:orderID="@+orderID/imageView3" />
+        android:id="@+id/imageView3" />
 
     <ImageView
         android:layout_margin="5dp"
@@ -26,6 +26,6 @@
         android:layout_height="30dp"
 
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+orderID/imageView3"
-        android:layout_toStartOf="@+orderID/imageView3" />
+        android:layout_toLeftOf="@+id/imageView3"
+        android:layout_toStartOf="@+id/imageView3" />
 </RelativeLayout>

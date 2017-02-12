@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="Edit"
             android:textSize="20sp"
-            android:orderID="@+orderID/account_info_edit_dialog_title"
+            android:id="@+id/account_info_edit_dialog_title"
             android:textAlignment="center" />
 
         <EditText
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="default"
             android:textSize="20sp"
-            android:orderID="@+orderID/account_info_edit_dialog_edit_text" />
+            android:id="@+id/account_info_edit_dialog_edit_text" />
 
 
     </LinearLayout>

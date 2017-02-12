@@ -24,7 +24,7 @@
             android:layout_alignLeft="@id/button_delete"
             />
         <ImageButton
-            android:orderID="@+id/button_delete"
+            android:id="@+id/button_delete"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"

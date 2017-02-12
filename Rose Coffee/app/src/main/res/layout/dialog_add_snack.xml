@@ -32,7 +32,7 @@
             android:paddingLeft="20dp">
 
             <ImageView
-                android:orderID="@+orderID/add_snack_name_image"
+                android:id="@+id/add_snack_name_image"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:src="@drawable/add_snack_name"
@@ -41,20 +41,20 @@
                 />
 
             <Spinner
-                android:orderID="@+orderID/add_snack_name_spinner"
+                android:id="@+id/add_snack_name_spinner"
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/editbox_dropdown_light_frame"
                 android:padding="4dp"
                 android:spinnerMode="dropdown"
                 android:textAlignment="center"
-                android:layout_toRightOf="@+orderID/add_snack_name_image"
+                android:layout_toRightOf="@+id/add_snack_name_image"
                 />
 
         </RelativeLayout>
 
         <EditText
-            android:orderID="@+orderID/add_snack_edit_text"
+            android:id="@+id/add_snack_edit_text"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -66,14 +66,14 @@
             android:layout_height="wrap_content"
             >
             <Button
-                android:orderID="@+orderID/add_snack_cancel"
+                android:id="@+id/add_snack_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
                 android:layout_alignParentLeft="true"
                 />
             <Button
-                android:orderID="@+orderID/add_snack_ok"
+                android:id="@+id/add_snack_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="OK"

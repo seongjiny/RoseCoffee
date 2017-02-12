@@ -30,7 +30,7 @@
                 android:layout_alignParentLeft="true"
                 />
             <TextView
-                android:orderID="@+orderID/cus_confirm_location"
+                android:id="@+id/cus_confirm_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -49,7 +49,7 @@
                 android:layout_alignParentLeft="true"
                 />
             <TextView
-                android:orderID="@+orderID/cus_confirm_time"
+                android:id="@+id/cus_confirm_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cus_confirm_time"
@@ -70,7 +70,7 @@
                 android:layout_alignParentLeft="true"
                 />
             <TextView
-                android:orderID="@+orderID/a"
+                android:id="@+id/a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -89,7 +89,7 @@
                 android:layout_alignParentLeft="true"
                 />
             <TextView
-                android:orderID="@+orderID/cus_confirm_price"
+                android:id="@+id/cus_confirm_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

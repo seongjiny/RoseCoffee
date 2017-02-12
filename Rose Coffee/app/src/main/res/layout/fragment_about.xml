@@ -6,7 +6,7 @@
     >
 
     <ImageView
-        android:orderID="@+orderID/about_image_view"
+        android:id="@+id/about_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
@@ -15,15 +15,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="11dp" />
     <LinearLayout
-        android:orderID="@+orderID/dev_name_layout"
+        android:id="@+id/dev_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+orderID/about_image_view"
+        android:layout_below="@+id/about_image_view"
         android:layout_marginTop="20dp"
         >
         <TextView
-            android:orderID="@+orderID/dev_name_text_view1"
+            android:id="@+id/dev_name_text_view1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/developer_name1"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="50dp"
             />
         <TextView
-            android:orderID="@+orderID/dev_name_text_view2"
+            android:id="@+id/dev_name_text_view2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/developer_name2"
@@ -43,7 +43,7 @@
 
     </LinearLayout>
     <TextView
-        android:orderID="@+orderID/about_text_view"
+        android:id="@+id/about_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
@@ -51,7 +51,7 @@
         android:lineSpacingExtra="6dp"
         android:textAlignment="center"
         android:text="@string/about_text"
-        android:layout_below="@+orderID/dev_name_layout"
+        android:layout_below="@+id/dev_name_layout"
 
         />
 
