@@ -9,7 +9,7 @@ import com.google.firebase.database.Exclude;
 public class User {
 
     private String uid;
-    private boolean iscustomer;
+    private boolean is_customer;
     private String name;
     private String email;
     private String phone;
@@ -22,11 +22,11 @@ public class User {
     //user related method (generate ID, password related, authentication, etc)
 
     public boolean isCustomer() {
-        return iscustomer;
+        return is_customer;
     }
 
     public void setIsCustomer(boolean isCustomer) {
-        this.iscustomer = isCustomer;
+        this.is_customer = isCustomer;
     }
 
     public String getName() {
