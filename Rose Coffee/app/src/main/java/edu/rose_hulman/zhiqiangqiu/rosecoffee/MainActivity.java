@@ -1,6 +1,5 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -55,12 +54,12 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private SharedPreferences mSharedPreferences;
     private OnCompleteListener mOnCompleteListener;
+    private boolean mIsCustomer = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSharedPreferences = getPreferences(Context.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity
                 if (user != null) {
                     Log.d("ddd", "Auth with user " + user);
                     if(mUser==null){
-                        FirebaseDatabase db = FirebaseDatabase.getInstance();
+                        FirebaseDatabase db=FirebaseDatabase.getInstance();
                         DatabaseReference ref = db.getReference();
                         mUser = new User();
                         ref.child("users").child(user.getUid())
@@ -99,20 +98,18 @@ public class MainActivity extends AppCompatActivity
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         mUser = dataSnapshot.getValue(User.class);
-                                        Log.d("ddd", "Successfully initializing data from firebase");
-                                        mUser.setIsCustomer(true);
-                                        if (mUser.isCustomer()) {
-                                            Log.d("ddd", "Right now, user is customer");
-                                        } else {
-                                            Log.d("ddd", "Right now, user is delivering");
-                                        }
-                                        switchToMyDeliveryFragment("users/" + mUser.getName());
+                                        Log.d("USER",mUser.getName()+"");
                                     }
 
                                     @Override
-                                    public void onCancelled(DatabaseError databaseError) {}
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
                                 });
+                        Log.d("USER2",mUser.getName()+"");
                     }
+                    switchToMyDeliveryFragment("users/" + user.getUid());
+
                 } else {
                     Log.d("ddd", "Go to Login page");
                     switchToLoginPage();
@@ -138,14 +135,17 @@ public class MainActivity extends AppCompatActivity
 
     private void switchToMyDeliveryFragment(String path) {
         mToolbar.setVisibility(View.VISIBLE);
+        DatabaseReference user = FirebaseDatabase.getInstance().getReference().child(path);
+//        user.addListenerForSingleValueEvent();
         Fragment initialFragment;
-        if (mUser.isCustomer()) {
-            Log.d("ddd", "AutoLogin: User is customer. Jump to customer main.");
+        if (mIsCustomer) {
             initialFragment = new CustomerMainFragment();
         } else {
-            Log.d("ddd", "AutoLogin: User is delivering. Jump to delivery main.");
             initialFragment = new DeliveryMainFragment();
         }
+        Bundle args = new Bundle();
+        args.putString(FIREBASE_PATH, mUser.getUid());
+        initialFragment.setArguments(args);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_main, initialFragment,"myDelivery");
         ft.commit();
@@ -224,9 +224,9 @@ public class MainActivity extends AppCompatActivity
                 switchToLoginPage();
                 return true;
             case R.id.action_settings:
-                Log.d("ddd",mUser+"");
+                Log.d("FF",mUser+"");
                 if(mUser!=null){
-                    Log.d("ddd", mUser.getName()+"");
+                    Log.d("FF", mUser.getName()+"");
                 }
                 return true;
         }
@@ -241,12 +241,10 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
 
             case R.id.nav_my_delivery:
-                if (mUser.isCustomer()) {
-                    Log.d("ddd", "User is customer. Jump to customer main.");
+                if (mIsCustomer) {
                     ft.replace(R.id.content_main,
                             new CustomerMainFragment()).commit();
                 } else {
-                    Log.d("ddd", "User is delivering. Jump to delivery main.");
                     ft.replace(R.id.content_main,
                             new DeliveryMainFragment()).commit();
                 }
