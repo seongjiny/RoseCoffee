@@ -1,14 +1,17 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
@@ -21,20 +24,32 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
  */
 public class DeliveryMainFragment extends Fragment {
 
+    private DatabaseReference mToClaimOrderRef;
     private Callback mCallback;
+    private DeliveryMainAdapter mAdapter;
 
     public DeliveryMainFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mToClaimOrderRef = FirebaseDatabase.getInstance().getReference().child("order/toClaim");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_delivery_main, container, false);
-        view.setLayoutManager(new LinearLayoutManager(getContext()));
-        DeliveryMainAdapter adapter = new DeliveryMainAdapter(getContext(), mCallback);
-        view.setAdapter(adapter);
+        RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_delivery_main,
+                container, false);
+        //Setup LayoutManager
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        view.setLayoutManager(manager);
+        //Setup Adapter
+        mAdapter = new DeliveryMainAdapter(getContext(), mToClaimOrderRef);
+        view.setAdapter(mAdapter);
         return view;
     }
 
@@ -47,6 +62,19 @@ public class DeliveryMainFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mToClaimOrderRef.removeEventListener(mAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.clear();
+        mToClaimOrderRef.addChildEventListener(mAdapter);
     }
 
     @Override
