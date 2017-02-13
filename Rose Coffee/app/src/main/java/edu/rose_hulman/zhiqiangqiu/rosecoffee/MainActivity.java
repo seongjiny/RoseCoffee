@@ -40,7 +40,7 @@ import edu.rosehulman.rosefire.RosefireResult;
 **
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, LoginFragment.OnLoginListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LoginFragment.OnLoginListener, DeliveryMainFragment.Callback {
 
     public static final String FIREBASE_PATH = "FIREBASE_PATH";
     private static final int RC_ROSEFIRE_LOGIN = 1;
@@ -266,9 +266,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     private void showLoginError(String message) {
         LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentByTag("Login");
         loginFragment.onLoginError(message);
+    }
+
+    @Override
+    public void onDeliveryListSelected(Order order) {
+        //TODO:
     }
 }
