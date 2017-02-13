@@ -1,77 +1,66 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
-import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.DummyContent.DummyItem;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- *
- * TODO: Replace the implementation with code for your data type.
+ * Created by JerryQiu on 2/12/17.
  */
-public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final DeliveryMainFragment.OnListFragmentInteractionListener mListener;
+public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapter.ViewHolder>{
 
-    public DeliveryMainAdapter(List<DummyItem> items, DeliveryMainFragment.OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    private ArrayList<Order>  mOrders;
+    private DeliveryMainFragment.Callback mCallback;
+
+    public DeliveryMainAdapter(Context context, DeliveryMainFragment.Callback callback) {
+        mCallback = callback;
+
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_delivery_main_container, parent, false);
+    public DeliveryMainAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_delivery_detail, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+    public void onBindViewHolder(DeliveryMainAdapter.ViewHolder holder, int position) {
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mOrders.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
+        final Order order = mOrders.get(position);
+        holder.mTitleTextView.setText(order.getCustomerID());
+        holder.mTitleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.onDeliveryListSelected(order);
+            }
+        });
+    }
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView mTitleTextView;
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mTitleTextView = (TextView) itemView.findViewById(R.id.order_bried);
         }
     }
 }
