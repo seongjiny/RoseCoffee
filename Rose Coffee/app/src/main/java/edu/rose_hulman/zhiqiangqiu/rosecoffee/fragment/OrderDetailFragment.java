@@ -5,22 +5,29 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Drink;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Snack;
 
 public class OrderDetailFragment extends Fragment {
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
+    OrderDetailAdapter mAdapter;
 
     public OrderDetailFragment() {
+
         // Required empty public constructor
     }
 
@@ -44,26 +51,36 @@ public class OrderDetailFragment extends Fragment {
                 showAddSnackDialog();
             }
         });
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.order_detail_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new OrderDetailAdapter(getActivity(),recyclerView);
+        recyclerView.setAdapter(mAdapter);
+
         return view;
     }
 
     private final void showAddDrinkDialog() {
         final Dialog mydialog = new Dialog(getActivity());
         mydialog.setContentView(R.layout.dialog_add_drink);
-        Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_name_spinner);
-        Spinner sizeSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_size_spinner);
+        final Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_name_spinner);
+        final Spinner sizeSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_size_spinner);
         String[] drinkNames = new String[]{"Strawberry Frappuccino","Cappuccino","Cafe Latte"};
         String[] sizeNames = new String[]{"Venti","Grande","Tall"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,drinkNames);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,sizeNames);
-
+        final EditText editComment = (EditText)mydialog.findViewById(R.id.add_drink_edit_text);
         nameSpinner.setAdapter(adapter1);
         sizeSpinner.setAdapter(adapter2);
         Button button = (Button) mydialog.findViewById(R.id.add_drink_ok);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("dd","ok");
+                Drink drink = new Drink(
+                        nameSpinner.getSelectedItem().toString(),
+                        sizeSpinner.getSelectedItem().toString(),
+                        editComment.getText()+"");
+                mAdapter.addMenuItem(drink);
                 mydialog.dismiss();
             }
         });
@@ -71,7 +88,6 @@ public class OrderDetailFragment extends Fragment {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("d","cancel");
                 mydialog.dismiss();
             }
         });
@@ -89,7 +105,8 @@ public class OrderDetailFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AA",nameSpinner.getSelectedItem()+"");
+                Snack snack = new Snack(nameSpinner.getSelectedItem().toString());
+                mAdapter.addMenuItem(snack);
                 mydialog.dismiss();
             }
         });
