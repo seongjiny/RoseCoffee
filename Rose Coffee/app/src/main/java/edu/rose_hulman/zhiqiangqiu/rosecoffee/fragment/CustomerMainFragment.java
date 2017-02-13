@@ -21,6 +21,7 @@ public class CustomerMainFragment extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 3 ;
+    private MyAdapter mAdapter;
 
     public CustomerMainFragment() {
         // Required empty public constructor
@@ -38,7 +39,8 @@ public class CustomerMainFragment extends Fragment {
         /**
          *Set an Apater for the View Pager
          */
-        viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+        mAdapter = new MyAdapter(getChildFragmentManager());
+        viewPager.setAdapter(mAdapter);
 
         /**
          * Now , this is a workaround ,
@@ -57,10 +59,17 @@ public class CustomerMainFragment extends Fragment {
 
     }
 
-    class MyAdapter extends FragmentPagerAdapter {
-
+    private class MyAdapter extends FragmentPagerAdapter {
+        LocationAndTimeFragment mLocationFragment;
+        OrderDetailFragment mOrderDetailFragment;
+        public ConfirmAndCheckOutFragment mConfirmFragment;
         public MyAdapter(FragmentManager fm) {
             super(fm);
+            mLocationFragment= new LocationAndTimeFragment();
+            mOrderDetailFragment = new OrderDetailFragment();
+            mConfirmFragment = new ConfirmAndCheckOutFragment();
+            mLocationFragment.sendFragment(mConfirmFragment);
+            mOrderDetailFragment.sendFragment(mConfirmFragment);
         }
 
         /**
@@ -71,9 +80,9 @@ public class CustomerMainFragment extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position) {
-                case 0 : return new LocationAndTimeFragment();
-                case 1 : return new OrderDetailFragment();
-                case 2 : return new ConfirmAndCheckOutFragment();
+                case 0 : return mLocationFragment;
+                case 1 : return mOrderDetailFragment;
+                case 2 : return mConfirmFragment;
             }
             return null;
         }
@@ -102,6 +111,7 @@ public class CustomerMainFragment extends Fragment {
             }
             return null;
         }
+
     }
 
 }

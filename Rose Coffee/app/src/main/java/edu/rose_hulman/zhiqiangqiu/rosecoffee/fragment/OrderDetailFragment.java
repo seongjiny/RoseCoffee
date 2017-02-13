@@ -24,7 +24,8 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.Snack;
 public class OrderDetailFragment extends Fragment {
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
-    OrderDetailAdapter mAdapter;
+    private OrderDetailAdapter mAdapter;
+    private ConfirmAndCheckOutFragment mConfirmFragment;
 
     public OrderDetailFragment() {
 
@@ -52,9 +53,10 @@ public class OrderDetailFragment extends Fragment {
             }
         });
 
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.order_detail_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new OrderDetailAdapter(getActivity(),recyclerView);
+        mAdapter = new OrderDetailAdapter(getActivity(),recyclerView,mConfirmFragment);
         recyclerView.setAdapter(mAdapter);
 
         return view;
@@ -121,7 +123,8 @@ public class OrderDetailFragment extends Fragment {
         mydialog.show();
     }
 
-    public void onClick(View v){
-        showAddDrinkDialog();
+
+    public void sendFragment(ConfirmAndCheckOutFragment confirmFragment) {
+        mConfirmFragment = confirmFragment;
     }
 }

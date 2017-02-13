@@ -56,5 +56,6 @@
     <string name="order_item_name" />
     <string name="action_logout">Log Out</string>
     <string name="order_item">item1</string>
+    <string name="confirm_and_pay">Confirm and Pay</string>
 
 </resources>

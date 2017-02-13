@@ -27,14 +27,15 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.Snack;
  */
 
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.ViewHolder>{
+    private ConfirmAndCheckOutFragment mConfirmFragment;
     private Context mContext;
     private RecyclerView mRecyclerView;
-    private View OrderDetailView;
     private ArrayList<MenuItem> mMenuItems = new ArrayList<>();
 
-    public OrderDetailAdapter(Context context,RecyclerView recyclerView){
+    public OrderDetailAdapter(Context context,RecyclerView recyclerView,ConfirmAndCheckOutFragment confirmFragment){
         mContext = context;
         mRecyclerView = recyclerView;
+        mConfirmFragment = confirmFragment;
     }
 
     @Override
@@ -48,14 +49,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         MenuItem menuItem = mMenuItems.get(position);
         holder.mMenuNameTextView.setText(menuItem.getName());
     }
-    public void removeMenuItem(int position){
-        MenuItem clearedItem = mMenuItems.get(position);
-        undo(clearedItem,position);
-        mMenuItems.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, mMenuItems.size());
-    }
-
     private void undo(final MenuItem clearedItem,final int position) {
 
         Snackbar snackbar = Snackbar
@@ -68,6 +61,15 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                 });
         snackbar.show();
     }
+    public void removeMenuItem(int position){
+        MenuItem clearedItem = mMenuItems.get(position);
+        undo(clearedItem,position);
+        mMenuItems.remove(position);
+        notifyDataSetChanged();
+        mConfirmFragment.editOrderInformation(mMenuItems);
+    }
+
+
 
     public void editMenuItem(int position, MenuItem menuItem){
         MenuItem clearedItem = mMenuItems.get(position);
@@ -75,19 +77,23 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mMenuItems.size());
         addMenuItem(position,menuItem);
+        mConfirmFragment.editOrderInformation(mMenuItems);
     }
     public void addMenuItem(MenuItem menuItem){
         mMenuItems.add(0, menuItem);
         notifyDataSetChanged();
+        mConfirmFragment.editOrderInformation(mMenuItems);
     }
     public void addMenuItem(int position,MenuItem menuItem){
         mMenuItems.add(position, menuItem);
         notifyDataSetChanged();
+        mConfirmFragment.editOrderInformation(mMenuItems);
     }
     @Override
     public int getItemCount() {
         return mMenuItems.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener,View.OnClickListener{
         private TextView mMenuNameTextView;

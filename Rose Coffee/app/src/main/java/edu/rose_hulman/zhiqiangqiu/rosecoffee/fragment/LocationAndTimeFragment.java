@@ -20,4 +20,7 @@ public class LocationAndTimeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_location_and_time, container, false);
     }
+
+    public void sendFragment(ConfirmAndCheckOutFragment mConfirmFragment) {
+    }
 }
