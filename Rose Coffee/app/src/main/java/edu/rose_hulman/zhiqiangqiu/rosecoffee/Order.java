@@ -13,40 +13,36 @@ public class Order {
 //    // orderState = 2 : Customer has received a drink and accepted that order is complete.
 //    // orderState = 3 : Order is complete, it is stored in Order history.
 //    // orderState 2 and 3 might be merged later
-    private int orderID;
-    private int customerID;
+    private String orderID;
+    private String customerID;
     private String location;
     private ArrayList<Drink> drinks;
     private ArrayList<String> snacks;
     private double totalPrice;
     private Time time;
-    private int deliveryID;
+    private String deliveryID;
 
-    public Order(int customerID,int deliveryPersonID,String location){
+    public Order(String customerID,String deliveryPersonID,String location){
         this.customerID = customerID;
         deliveryID = deliveryPersonID;
         this.location = location;
-
     }
+
     public void addDrink(Drink drink){
         drinks.add(drink);
     }
+
     public void deleteDrink(Drink drink){
         drinks.remove(drink);
     }
+
     public void addSnack(String snack){
         snacks.add(snack);
     }
+
     public void removeSnack(String snack){
         snacks.remove(snack);
     }
-//    public int getOrderState() {
-//        return orderState;
-//    }
-//
-//    public void setOrderState(int orderState) {
-//        this.orderState = orderState;
-//    }
 
     public double getTotalPrice() {
         return totalPrice;
@@ -56,19 +52,19 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public int getOrderID() {
+    public String getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(String orderID) {
         this.orderID = orderID;
     }
 
-    public int getCustomerID() {
+    public String getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
 
@@ -80,7 +76,6 @@ public class Order {
         this.location = location;
     }
 
-
     public Time getTime() {
         return time;
     }
@@ -89,19 +84,11 @@ public class Order {
         this.time = time;
     }
 
-    public int getDeliveryID() {
+    public String getDeliveryID() {
         return deliveryID;
     }
 
-    public void setDeliveryID(int deliveryID) {
+    public void setDeliveryID(String deliveryID) {
         this.deliveryID = deliveryID;
     }
-
-
-
-    // we will write more methods like generate OrderID, etc.
-
-
-
-
 }
