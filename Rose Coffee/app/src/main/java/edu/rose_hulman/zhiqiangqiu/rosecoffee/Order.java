@@ -19,7 +19,7 @@ public class Order {
     private ArrayList<Drink> drinks;
     private ArrayList<String> snacks;
     private double totalPrice;
-    private Time time;
+    private String time;
     private String deliveryID;
 
     public Order(String customerID,String deliveryPersonID,String location){
@@ -76,11 +76,11 @@ public class Order {
         this.location = location;
     }
 
-    public Time getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
