@@ -3,6 +3,7 @@ package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.MenuItem;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
 public class ConfirmAndCheckOutFragment extends Fragment {
-    View mConfirmLayout;
+    View mConfirmLayout=null;
     public ConfirmAndCheckOutFragment() {
         // Required empty public constructor
     }
@@ -23,6 +24,7 @@ public class ConfirmAndCheckOutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("TAG","AWEFWEWEF");
         final View view = inflater.inflate(R.layout.fragment_confirm_and_check_out, container, false);
         final TextView confirmButton = (TextView) view.findViewById(R.id.confrim_and_pay_text);
         mConfirmLayout = view.findViewById(R.id.confirm_detail_layout);
@@ -37,7 +39,7 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         });
         return view;
     }
-    public void editOrderInformation(ArrayList<MenuItem> allMenu){
+    public void editOrderItemInformation(ArrayList<MenuItem> allMenu){
         int size = allMenu.size();
         String name = allMenu.get(0).getName();
         TextView view = (TextView)mConfirmLayout.findViewById(R.id.confirm_order_detail);
@@ -48,6 +50,13 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         }else{
             view.setText(name+" and "+(size-1)+" others");
         }
+    }
+    public void editLocation(String name){
+        if(mConfirmLayout!=null){
+            TextView locationView = (TextView)mConfirmLayout.findViewById(R.id.cus_confirm_location);
+            locationView.setText(name);
+        }
+        Log.d("TAG","NO LAYOUT!!!");
     }
 
 }
