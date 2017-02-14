@@ -25,7 +25,7 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 public class DeliveryMainFragment extends Fragment {
 
     private DatabaseReference mToClaimOrderRef;
-    private Callback mCallback;
+    private Context mCallback;
     private DeliveryMainAdapter mAdapter;
 
     public DeliveryMainFragment() {
@@ -48,7 +48,7 @@ public class DeliveryMainFragment extends Fragment {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         view.setLayoutManager(manager);
         //Setup Adapter
-        mAdapter = new DeliveryMainAdapter(getContext(), mToClaimOrderRef);
+        mAdapter = new DeliveryMainAdapter(mCallback, mToClaimOrderRef);
         view.setAdapter(mAdapter);
         return view;
     }
@@ -57,7 +57,7 @@ public class DeliveryMainFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof Callback) {
-            mCallback = (Callback) context;
+            mCallback = context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -67,14 +67,14 @@ public class DeliveryMainFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        mToClaimOrderRef.removeEventListener(mAdapter);
+        mToClaimOrderRef.removeEventListener(mAdapter.mChildEventListener);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mAdapter.clear();
-        mToClaimOrderRef.addChildEventListener(mAdapter);
+        mToClaimOrderRef.addChildEventListener(mAdapter.mChildEventListener);
     }
 
     @Override

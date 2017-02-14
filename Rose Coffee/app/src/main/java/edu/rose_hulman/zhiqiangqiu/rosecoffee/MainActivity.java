@@ -267,7 +267,8 @@ public class MainActivity extends AppCompatActivity
 
 
     private void showLoginError(String message) {
-        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentByTag("Login");
+        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().
+                findFragmentByTag("Login");
         loginFragment.onLoginError(message);
     }
 

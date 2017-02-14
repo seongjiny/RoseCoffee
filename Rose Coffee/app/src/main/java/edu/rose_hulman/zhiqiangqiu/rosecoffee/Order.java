@@ -1,6 +1,9 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yoons1 on 1/15/2017.
@@ -14,18 +17,25 @@ public class Order {
 //    // orderState = 3 : Order is complete, it is stored in Order history.
 //    // orderState 2 and 3 might be merged later
     private String orderID;
-    private String customerID;
+    private String customer;
     private String location;
-    private ArrayList<Drink> drinks;
-    private ArrayList<String> snacks;
+    private List<Drink> drinks;
+    private List<String> snacks;
     private double totalPrice;
     private String time;
-    private String deliveryID;
+    private String delivery;
 
-    public Order(String customerID,String deliveryPersonID,String location){
-        this.customerID = customerID;
-        deliveryID = deliveryPersonID;
+    public Order() {
+        //Empty
+    }
+
+    public Order(String customerID, String location, String time, ArrayList<Drink> drinks, ArrayList<String> snacks, double totalPrice) {
+        this.customer = customerID;
         this.location = location;
+        this.time = time;
+        this.drinks = drinks;
+        this.snacks = snacks;
+        this.totalPrice = totalPrice;
     }
 
     public void addDrink(Drink drink){
@@ -52,6 +62,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    @Exclude
     public String getOrderID() {
         return orderID;
     }
@@ -61,11 +72,11 @@ public class Order {
     }
 
     public String getCustomerID() {
-        return customerID;
+        return customer;
     }
 
     public void setCustomerID(String customerID) {
-        this.customerID = customerID;
+        this.customer = customerID;
     }
 
     public String getLocation() {
@@ -85,10 +96,14 @@ public class Order {
     }
 
     public String getDeliveryID() {
-        return deliveryID;
+        return delivery;
     }
 
     public void setDeliveryID(String deliveryID) {
-        this.deliveryID = deliveryID;
+        this.delivery = deliveryID;
     }
+
+    public int getSnackCount() {return snacks.size();}
+
+    public int getDrinkCount() {return drinks.size();}
 }
