@@ -66,7 +66,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         undo(clearedItem,position);
         mMenuItems.remove(position);
         notifyDataSetChanged();
-        mConfirmFragment.editOrderInformation(mMenuItems);
+        mConfirmFragment.editOrderItemInformation(mMenuItems);
     }
 
 
@@ -77,17 +77,17 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mMenuItems.size());
         addMenuItem(position,menuItem);
-        mConfirmFragment.editOrderInformation(mMenuItems);
+        mConfirmFragment.editOrderItemInformation(mMenuItems);
     }
     public void addMenuItem(MenuItem menuItem){
         mMenuItems.add(0, menuItem);
         notifyDataSetChanged();
-        mConfirmFragment.editOrderInformation(mMenuItems);
+        mConfirmFragment.editOrderItemInformation(mMenuItems);
     }
     public void addMenuItem(int position,MenuItem menuItem){
         mMenuItems.add(position, menuItem);
         notifyDataSetChanged();
-        mConfirmFragment.editOrderInformation(mMenuItems);
+        mConfirmFragment.editOrderItemInformation(mMenuItems);
     }
     @Override
     public int getItemCount() {

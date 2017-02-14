@@ -32,9 +32,9 @@ public class CustomerMainFragment extends Fragment {
         /**
          *Inflate tab_layout and setup Views.
          */
-        View x =  inflater.inflate(R.layout.tabbed_customer_main,null);
-        tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        View rootView =  inflater.inflate(R.layout.tabbed_customer_main,null);
+        tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
+        viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
 
         /**
          *Set an Apater for the View Pager
@@ -55,7 +55,7 @@ public class CustomerMainFragment extends Fragment {
             }
         });
 
-        return x;
+        return rootView;
 
     }
 

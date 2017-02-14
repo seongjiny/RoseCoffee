@@ -26,8 +26,8 @@
                 android:src="@drawable/cus_main_building_img"
                 android:layout_centerVertical="true" />
 
-            <EditText
-                android:id="@+id/add_drink_name_edit_text"
+            <TextView
+                android:id="@+id/location_text_view"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/add_drink_name_image"
@@ -37,54 +37,10 @@
                 android:textSize="20sp"
                 android:layout_marginLeft="10dp"
                 android:hint="@string/cus_main_building_hint"
-                android:maxLines="1"
-                android:inputType="text"
-                android:ellipsize="end" />
+                android:clickable="true"
+                />
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:paddingLeft="20dp">
-
-            <ImageView
-                android:id="@+id/add_drink_size_image"
-                android:layout_width="40sp"
-                android:layout_height="40sp"
-                android:src="@drawable/cus_main_room_img"
-                android:layout_centerVertical="true" />
-
-            <EditText
-                android:id="@+id/add_drink_size"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/add_drink_size_image"
-                android:text="@string/room_name"
-                android:layout_centerVertical="true"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:layout_marginLeft="10dp"
-                android:hint="@string/cus_main_room_hint"
-                android:maxLines="1"
-                android:inputType="text"
-                android:ellipsize="end" />
-
-        </RelativeLayout>
-
-        <EditText
-            android:inputType="textMultiLine"
-            android:lines="3"
-            android:maxLines="5"
-            android:ellipsize="end"
-            android:padding="10sp"
-            android:hint="@string/cus_main_msg_hint"
-            android:layout_marginTop="10dp"
-            android:layout_width="300sp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/border_style" />
 
 
         <TimePicker
