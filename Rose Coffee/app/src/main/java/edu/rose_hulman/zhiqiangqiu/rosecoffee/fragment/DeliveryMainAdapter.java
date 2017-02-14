@@ -46,9 +46,19 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
 
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
             Order order = dataSnapshot.getValue(Order.class);
             order.setOrderID(dataSnapshot.getKey());
+            for (Order o: mOrders) {
+                if (order.getOrderID().equals(o.getOrderID())) {
+                    Log.d("ddd", "Order " +order.getOrderID() + " already exist, skip");
+                    return;
+                }
+            }
+
+            Log.d("ddd", "order: " + order.getOrderID() + "current orders count: " + mOrders.size());
             mOrders.add(order);
+            notifyDataSetChanged();
         }
 
         @Override

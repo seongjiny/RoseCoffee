@@ -19,8 +19,8 @@ public class Order {
     private String orderID;
     private String customer;
     private String location;
-    private List<Drink> drinks;
-    private List<String> snacks;
+    private List<Drink> drinks = new ArrayList<>();
+    private List<String> snacks = new ArrayList<>();
     private double totalPrice;
     private String time;
     private String delivery;
@@ -75,8 +75,8 @@ public class Order {
         return customer;
     }
 
-    public void setCustomerID(String customerID) {
-        this.customer = customerID;
+    public void setCustomerID(String customer) {
+        this.customer = customer;
     }
 
     public String getLocation() {
@@ -99,8 +99,8 @@ public class Order {
         return delivery;
     }
 
-    public void setDeliveryID(String deliveryID) {
-        this.delivery = deliveryID;
+    public void setDeliveryID(String delivery) {
+        this.delivery = delivery;
     }
 
     public int getSnackCount() {return snacks.size();}
