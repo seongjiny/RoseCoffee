@@ -55,5 +55,8 @@
     <string name="action_logout">Log Out</string>
     <string name="order_item">item1</string>
     <string name="confirm_and_pay">Confirm and Pay</string>
+    <string name="dialog_location_title">Where do you want to pick up your order?</string>
+    <string name="location_name">Location Name</string>
+    <string name="location_hint">ex. O259</string>
 
 </resources>

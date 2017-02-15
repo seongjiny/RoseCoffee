@@ -68,7 +68,6 @@ public class CustomerMainFragment extends Fragment {
             mLocationFragment= new LocationAndTimeFragment();
             mOrderDetailFragment = new OrderDetailFragment();
             mConfirmFragment = new ConfirmAndCheckOutFragment();
-            mLocationFragment.sendFragment(mConfirmFragment);
             mOrderDetailFragment.sendFragment(mConfirmFragment);
         }
 

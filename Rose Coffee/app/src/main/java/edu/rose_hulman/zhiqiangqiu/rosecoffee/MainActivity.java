@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private User mUser = null;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private OnCompleteListener mOnCompleteListener;
+    private Order mOrder;
 //    private SharedPreferences mSharedPreferences;
 //    private SharedPreferenceUtils mSharedPreferenceUtils;
 
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity
                 R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+        mOrder = new Order();
 
         //To identify if the user is already log in
         initializeListeners();
@@ -276,5 +278,9 @@ public class MainActivity extends AppCompatActivity
     public void onDeliveryListSelected(Order order, DatabaseReference toClaimRef) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_main, new DeliveryMainFragment()).commit();
+    }
+    public Order getOrder(){
+        Log.d("ORDER","VISITED");
+        return mOrder;
     }
 }
