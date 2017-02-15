@@ -91,11 +91,11 @@ public class LoginFragment extends Fragment {
     @Override
     public void onAttach(Context activity) {
         super.onAttach(activity);
-        try {
+        if (activity instanceof OnLoginListener) {
             mListener = (OnLoginListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+        } else {
+            throw new RuntimeException(activity.toString()
+                    + " must implement OnContactListener");
         }
     }
 

@@ -1,6 +1,7 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -36,6 +37,12 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.LoginFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment;
 import edu.rosehulman.rosefire.Rosefire;
 import edu.rosehulman.rosefire.RosefireResult;
+
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.CUSTOMER_KEY;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.EMAIL_KEY;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.NAME_KEY;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.PREFS;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.UID_KEY;
 
 /*
 ** Author: Seongjin Yoon and Zhiqiang Qiu
@@ -82,6 +89,12 @@ public class MainActivity extends AppCompatActivity
         mOrder = new Order();
         mRef = FirebaseDatabase.getInstance().getReference();
         importDrinks();
+        SharedPreferences prefs = getSharedPreferences(PREFS,MODE_PRIVATE);
+        mUser = new User();
+        mUser.setUid(prefs.getString(UID_KEY, null));
+        mUser.setEmail(prefs.getString(EMAIL_KEY,null));
+        mUser.setIsCustomer(prefs.getBoolean(CUSTOMER_KEY,true));
+        mUser.setName(prefs.getString(NAME_KEY,null));
         //To identify if the user is already log in
         initializeListeners();
     }
@@ -98,23 +111,22 @@ public class MainActivity extends AppCompatActivity
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d("ddd", "Auth with user :" + user);
-                    if(mUser==null){
-                        FirebaseDatabase db=FirebaseDatabase.getInstance();
-                        DatabaseReference ref = db.getReference();
-                        mUser = new User();
-                        ref.child("users").child(user.getUid())
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        mUser = dataSnapshot.getValue(User.class);
-                                        if (mUser.isCustomer())
-                                        switchToMyDeliveryFragment();
-                                    }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {}
-                                });
-                    }
+                    switchToMyDeliveryFragment();
+//                    mUser = new User();
+//                    ref.child("users").child(mUser.getUid())
+//                            .addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                    mUser = dataSnapshot.getValue(User.class);
+//                                    if (mUser.isCustomer())
+//
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(DatabaseError databaseError) {}
+//                            });
+
                 } else {
                     Log.d("ddd", "Go to Login page");
                     switchToLoginPage();
@@ -156,17 +168,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mUser = new User();
         if (requestCode == RC_ROSEFIRE_LOGIN) {
             RosefireResult result = Rosefire.getSignInResultFromIntent(data);
             if (result.isSuccessful()) {
-                mAuth.signInWithCustomToken(result.getToken()).addOnCompleteListener(this, mOnCompleteListener);
+                mAuth.signInWithCustomToken(result.getToken())
+                        .addOnCompleteListener(this, mOnCompleteListener);
+                DatabaseReference userRef = mRef.child("users/"+result.getUsername());
+                userRef.keepSynced(true);
+                mUser = new User();
                 mUser.setUid(result.getUsername());
                 mUser.setName(result.getName());
                 mUser.setEmail(result.getEmail());
                 mUser.setIsCustomer(true);
-                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users/"+result.getUsername());
-                userRef.setValue(mUser);
+
+                mToolbar.setVisibility(View.VISIBLE);
             } else {
                 showLoginError("Rosefire sign in failed.");
             }
@@ -188,7 +203,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        if (mUser != null) {
+            editor.putString(UID_KEY, mUser.getUid());
+            editor.putString(EMAIL_KEY, mUser.getEmail());
+            editor.putString(NAME_KEY, mUser.getName());
+            editor.putBoolean(CUSTOMER_KEY, mUser.isCustomer());
+        }
+        editor.commit();
+    }
+
+    @Override
     public void onRosefireLogin() {
+        mToolbar.setVisibility(View.GONE);
         Intent signInIntent = Rosefire.getSignInIntent(this, getString(R.string.rosefire_key));
         startActivityForResult(signInIntent, RC_ROSEFIRE_LOGIN);
     }
@@ -202,7 +232,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
