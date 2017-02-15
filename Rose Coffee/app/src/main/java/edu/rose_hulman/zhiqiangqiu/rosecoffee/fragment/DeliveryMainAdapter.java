@@ -14,7 +14,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -69,13 +68,13 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
 
         @Override
         public void onChildRemoved(DataSnapshot dataSnapshot) {
+            Log.d("ddd", "A toCliam order has been removed when user inspecting delivery main list");
             String key = dataSnapshot.getKey();
             remove(key);
         }
 
         @Override
         public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             //I am not sure about this!!!
             String key = dataSnapshot.getKey();
             remove(key);
@@ -156,23 +155,23 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
                         .setMessage("Do you want to claim this order?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                mToClaimOrderRef.child(order.getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        //If succeed, jump to next page.
-                                        Order order = dataSnapshot.getValue(Order.class);
-                                        order.setOrderID(dataSnapshot.getKey());
-                                        mToClaimOrderRef.child(order.getOrderID()).removeValue();
-                                        order.setDeliveryID(mCallback.getUser().getUid());
-                                        mCallback.onDeliveryListSelected(order, mToClaimOrderRef);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-                                        //If failed, snackbar show up.
-
-                                    }
-                                });
+//                                mToClaimOrderRef.child(order.getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                                        //If succeed, jump to next page.
+//                                        Order order = dataSnapshot.getValue(Order.class);
+//                                        order.setOrderID(dataSnapshot.getKey());
+//                                        mToClaimOrderRef.child(order.getOrderID()).removeValue();
+//                                        order.setDeliveryID(mCallback.getUser().getUid());
+//                                        mCallback.onDeliveryListSelected(order, mToClaimOrderRef);
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancelled(DatabaseError databaseError) {
+//                                        //If failed, snackbar show up.
+//
+//                                    }
+//                                });
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

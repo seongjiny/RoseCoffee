@@ -12,13 +12,10 @@ public class User {
     private boolean is_customer;
     private String name;
     private String email;
-    private String phone;
 
     public User() {
         //Empty constructor
     }
-
-
     //user related method (generate ID, password related, authentication, etc)
 
     public boolean isCustomer() {
@@ -37,14 +34,6 @@ public class User {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -52,6 +41,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
     @Exclude
     public String getUid() {
         return uid;
