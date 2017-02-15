@@ -1,13 +1,19 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
@@ -30,10 +36,31 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressBar pb = (ProgressBar)view.findViewById(R.id.confirm_progress);
-                pb.setVisibility(View.VISIBLE);
-                confirmButton.setText("Searching...");
-                confirmButton.setClickable(false);
+                if(mOrder.isOrderReady()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Do you really want to make this Payment?");
+                    builder
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ProgressBar pb = (ProgressBar)view.findViewById(R.id.confirm_progress);
+                                    pb.setVisibility(View.VISIBLE);
+                                    confirmButton.setText("Searching for deliverer...");
+                                    confirmButton.setClickable(false);
+                                    sendOrderToDatabase();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.cancel,null);
+
+
+
+                    builder.create().show();
+                }else{
+                    Snackbar snackbar = Snackbar
+                            .make(view,"Please fill out all the order information.",Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+
             }
         });
         TextView locationView = (TextView)mConfirmLayout.findViewById(R.id.cus_confirm_location);
@@ -47,6 +74,13 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         priceView.setText("$"+mOrder.getTotalPrice());
         return view;
     }
+
+    private void sendOrderToDatabase() {
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("order");
+        orderRef.child("toClaim").push().setValue(mOrder);
+
+    }
+
     public void updateOrder(){
         TextView orderView = (TextView) mConfirmLayout.findViewById(R.id.confirm_order_detail);
         TextView priceView = (TextView) mConfirmLayout.findViewById(R.id.cus_confirm_price);

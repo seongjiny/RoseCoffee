@@ -23,7 +23,6 @@ public class Order {
     private double totalPrice=0;
     private String time;
     private String delivery;
-
     public Order() {
         //Empty
     }
@@ -35,6 +34,7 @@ public class Order {
         this.drinks = drinks;
         this.snacks = snacks;
         this.totalPrice = totalPrice;
+
     }
 
     public void addDrink(Drink drink){
@@ -97,15 +97,19 @@ public class Order {
     public String getDelivery() {
         return delivery;
     }
-
     public void setDelivery(String delivery) {
         this.delivery = delivery;
     }
-
+    @Exclude
     public int getSnackCount() {return snacks.size();}
-
+    @Exclude
     public int getDrinkCount() {return drinks.size();}
-
+    public ArrayList<Drink> getDrinks(){
+        return drinks;
+    }
+    public ArrayList<String> getSnacks(){
+       return this.snacks;
+    }
     public void setDrinks(ArrayList<Drink> drinks){
         this.drinks=drinks;
     }
@@ -114,5 +118,11 @@ public class Order {
     }
     public void addToTotalPrice(double price){
         totalPrice+=price;
+    }
+    public boolean isOrderReady(){
+        if(drinks.size()+snacks.size()==0) return false;
+        else if(location==null) return false;
+        else if(time==null) return  false;
+        else return true;
     }
 }
