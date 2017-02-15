@@ -163,7 +163,7 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
                                         Order order = dataSnapshot.getValue(Order.class);
                                         order.setOrderID(dataSnapshot.getKey());
                                         mToClaimOrderRef.child(order.getOrderID()).removeValue();
-                                        order.setDeliveryID(mCallback.getUser().getUid());
+                                        order.setDelivery(mCallback.getUser().getUid());
                                         mCallback.onDeliveryListSelected(order, mToClaimOrderRef);
                                     }
 

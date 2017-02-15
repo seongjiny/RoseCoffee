@@ -28,8 +28,8 @@ public class Order {
         //Empty
     }
 
-    public Order(String customerID, String location, String time, ArrayList<Drink> drinks, ArrayList<String> snacks, double totalPrice) {
-        this.customer = customerID;
+    public Order(String customer, String location, String time, ArrayList<Drink> drinks, ArrayList<String> snacks, double totalPrice) {
+        this.customer = customer;
         this.location = location;
         this.time = time;
         this.drinks = drinks;
@@ -70,11 +70,11 @@ public class Order {
         this.orderID = orderID;
     }
 
-    public String getCustomerID() {
+    public String getCustomer() {
         return customer;
     }
 
-    public void setCustomerID(String customer) {
+    public void setCustomer(String customer) {
         this.customer = customer;
     }
 
@@ -94,11 +94,11 @@ public class Order {
         this.time = time;
     }
 
-    public String getDeliveryID() {
+    public String getDelivery() {
         return delivery;
     }
 
-    public void setDeliveryID(String delivery) {
+    public void setDelivery(String delivery) {
         this.delivery = delivery;
     }
 
