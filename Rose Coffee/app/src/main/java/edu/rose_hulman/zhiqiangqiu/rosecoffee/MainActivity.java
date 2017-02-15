@@ -33,6 +33,7 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AboutUsFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AccountInformationFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.CustomerMainFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.DeliveryMainFragment;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.DeliveryOrderSpecific;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.LoginFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.SettingFragment;
 import edu.rosehulman.rosefire.Rosefire;
@@ -49,7 +50,7 @@ import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.UID_KEY;
 **
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, LoginFragment.OnLoginListener, DeliveryMainFragment.Callback {
+        implements NavigationView.OnNavigationItemSelectedListener, LoginFragment.OnLoginListener, DeliveryMainFragment.Callback , DeliveryOrderSpecific.FinishOrder{
 
     public static final String FIREBASE_PATH = "FIREBASE_PATH";
     private static final int RC_ROSEFIRE_LOGIN = 1;
@@ -311,7 +312,11 @@ public class MainActivity extends AppCompatActivity
     public void onDeliveryListSelected(Order order) {
         mRef.child("order/claimed").child(order.getOrderID()).setValue(order);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_main, new DeliveryMainFragment()).commit();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.ORDER_KEY, order.getOrderID()+"");
+        DeliveryOrderSpecific fragment = new DeliveryOrderSpecific();
+        fragment.setArguments(bundle);
+        ft.replace(R.id.content_main, fragment).commit();
     }
 
     public Order getOrder(){
@@ -363,4 +368,9 @@ public class MainActivity extends AppCompatActivity
         return mToolbar;
     }
 
+    @Override
+    public void onDeliveryFinished() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_main, new DeliveryMainFragment()).commit();
+    }
 }

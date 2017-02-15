@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.DeliveryOrderSpecific"
+    android:id="@+id/fragment_delivery_order_specific_relative"
+    android:padding="10dp">
+
+    <TextView
+        android:textSize="20sp"
+        android:text="Location: "
+        android:layout_marginTop="20dp"
+        android:id="@+id/delivery_detail_location_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="loading"
+        android:layout_alignTop="@+id/delivery_detail_location_title"
+        android:layout_toRightOf="@+id/delivery_detail_location_title"
+        android:layout_width="wrap_content"
+        android:textSize="18sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/delivery_detail_location" />
+
+    <TextView
+        android:text="Time: "
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/delivery_detail_location_title"
+        android:layout_alignStart="@+id/delivery_detail_location_title"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delivery_detail_time_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_alignTop="@+id/delivery_detail_time_title"
+        android:layout_toRightOf="@+id/delivery_detail_time_title"
+        android:text="loading"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delivery_detail_time" />
+
+    <TextView
+        android:text="Customer: "
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/delivery_detail_time_title"
+        android:layout_alignStart="@+id/delivery_detail_time_title"
+        android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/delivery_detail_customer_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/delivery_detail_customer_title"
+        android:layout_toRightOf="@+id/delivery_detail_customer_title"
+        android:id="@+id/delivery_detail_customer" />
+
+    <TextView
+        android:text="Order: "
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/delivery_detail_customer_title"
+        android:layout_alignStart="@+id/delivery_detail_customer_title"
+        android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/delivery_detail_order_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/delivery_detail_order_title"
+        android:layout_toRightOf="@+id/delivery_detail_order_title"
+        android:id="@+id/delivery_detail_order" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Finish"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/delivery_finish_button"/>
+
+</RelativeLayout>
