@@ -310,13 +310,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDeliveryListSelected(Order order) {
-        mRef.child("order/claimed").child(order.getOrderID()).setValue(order);
+        mRef.child("order/claimed").child(order.getOrderID()+"").setValue(order);
+        SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        if (mUser != null) {
+            editor.putString(Constants.ORDER_KEY, order.getOrderID()+"");
+        }
+        editor.commit();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.ORDER_KEY, order.getOrderID()+"");
-        DeliveryOrderSpecific fragment = new DeliveryOrderSpecific();
-        fragment.setArguments(bundle);
-        ft.replace(R.id.content_main, fragment).commit();
+        ft.replace(R.id.content_main, new DeliveryOrderSpecific()).commit();
     }
 
     public Order getOrder(){

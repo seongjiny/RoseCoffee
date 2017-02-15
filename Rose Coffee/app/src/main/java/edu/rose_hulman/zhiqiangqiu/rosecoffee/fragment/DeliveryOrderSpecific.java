@@ -3,6 +3,7 @@ package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,8 +26,10 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
+import static android.content.Context.MODE_PRIVATE;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.DELIVERED_ORDER_ALERT_CONTENT;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.DELIVERED_ORDER_ALERT_TITLE;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.PREFS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,8 +47,9 @@ public class DeliveryOrderSpecific extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRef  = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_REF_ORDER).child(Constants.FIREBASE_REF_CLAIMED);
-        String key = savedInstanceState.getString(Constants.ORDER_KEY);
         mCallback = (MainActivity)getActivity();
+        SharedPreferences prefs = mCallback.getSharedPreferences(PREFS,MODE_PRIVATE);
+        String key = prefs.getString(Constants.ORDER_KEY, "");
         final TextView locationTextView = (TextView) mCallback.findViewById(R.id.delivery_detail_location);
         final TextView timeTextView = (TextView) mCallback.findViewById(R.id.delivery_detail_time);
         final TextView customerTextView = (TextView) mCallback.findViewById(R.id.delivery_detail_customer);
