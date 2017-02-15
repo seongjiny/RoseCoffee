@@ -308,8 +308,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDeliveryListSelected(String key, HashMap<String,Object> map) {
-        mRef.child("order/claimed").child(key).setValue(map);
+    public void onDeliveryListSelected(Order order) {
+        mRef.child("order/claimed").child(order.getOrderID()).setValue(order);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_main, new DeliveryMainFragment()).commit();
     }

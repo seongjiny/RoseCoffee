@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
 /**
@@ -95,6 +94,6 @@ public class DeliveryMainFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface Callback {
-        void onDeliveryListSelected(String key, HashMap<String, Object> map);
+        void onDeliveryListSelected(Order order);
     }
 }

@@ -7,6 +7,11 @@ public class Drink implements MenuItem{
     private String size;
     private String name;
     private String comment;
+
+    public Drink() {
+        //Empty
+    }
+
     public Drink(String name,String size, String comment){
         this.name=name;
         this.size=size;
