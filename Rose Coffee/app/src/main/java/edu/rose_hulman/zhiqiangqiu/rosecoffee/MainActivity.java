@@ -115,19 +115,6 @@ public class MainActivity extends AppCompatActivity
                     Log.d("ddd", "Auth with user :" + user);
 
                     switchToMyDeliveryFragment();
-//                    mUser = new User();
-//                    ref.child("users").child(mUser.getUid())
-//                            .addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(DataSnapshot dataSnapshot) {
-//                                    mUser = dataSnapshot.getValue(User.class);
-//                                    if (mUser.isCustomer())
-//
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(DatabaseError databaseError) {}
-//                            });
 
                 } else {
                     Log.d("ddd", "Go to Login page");
@@ -152,7 +139,7 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
     }
 
-    private void switchToMyDeliveryFragment() {
+    public void switchToMyDeliveryFragment() {
         mToolbar.setVisibility(View.VISIBLE);
         Fragment initialFragment;
         if (mUser.isCustomer()) {

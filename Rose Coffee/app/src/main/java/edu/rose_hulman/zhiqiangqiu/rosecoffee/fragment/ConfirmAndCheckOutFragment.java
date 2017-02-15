@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,6 +27,8 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 public class ConfirmAndCheckOutFragment extends Fragment {
     View mConfirmLayout=null;
     Order mOrder;
+    ProgressBar pb;
+
     public ConfirmAndCheckOutFragment() {
         // Required empty public constructor
     }
@@ -33,6 +39,7 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_confirm_and_check_out, container, false);
         final TextView confirmButton = (TextView) view.findViewById(R.id.confrim_and_pay_text);
         mConfirmLayout = view.findViewById(R.id.confirm_detail_layout);
+        pb = (ProgressBar)view.findViewById(R.id.confirm_progress);
         mOrder = ((MainActivity)getActivity()).getOrder();
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,12 +51,11 @@ public class ConfirmAndCheckOutFragment extends Fragment {
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    ProgressBar pb = (ProgressBar)view.findViewById(R.id.confirm_progress);
+
                                     pb.setVisibility(View.VISIBLE);
                                     confirmButton.setText(Constants.PENDING_ORDER_MSG);
                                     confirmButton.setClickable(false);
                                     sendOrderToDatabase();
-                                    disable();
                                 }
                             })
                             .setNegativeButton(android.R.string.cancel,null);
@@ -81,8 +87,43 @@ public class ConfirmAndCheckOutFragment extends Fragment {
 
     private void sendOrderToDatabase() {
         DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_REF_ORDER);
-        orderRef.child(Constants.FIREBASE_REF_TOCLAIM).push().setValue(mOrder);
+        DatabaseReference parent = orderRef.child(Constants.FIREBASE_REF_TOCLAIM);
+        DatabaseReference temp = parent.push();
+        final String key = temp.getKey();
+        Log.d("OOO",key+"");
+        parent.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d("DDD",dataSnapshot.getKey()+"");
+                if(dataSnapshot.getKey().toString().equals(key)){
+                    reset();
+
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        temp.setValue(mOrder);
+        ((MainActivity) getActivity()).getToolbar().setVisibility(View.GONE);
     }
 
     public void updateOrder(){
@@ -91,8 +132,13 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         orderView.setText(String.format(Constants.DRINK_AND_SNACK_STATE,mOrder.getDrinks().size(),mOrder.getSnackCount()));
         priceView.setText(String.format(Constants.TOTAL_PRICE,mOrder.getTotalPrice()));
     }
-    private void disable() {
-        ((MainActivity) getActivity()).getToolbar().setVisibility(View.GONE);
+    private void reset() {
+        pb.setVisibility(View.GONE);
+        ((MainActivity) getActivity()).getToolbar().setVisibility(View.VISIBLE);
+        String uid = mOrder.getCustomerID();
+        mOrder = new Order();
+        mOrder.setCustomerID(uid);
+        ((MainActivity) getActivity()).switchToMyDeliveryFragment();
     }
 
 
