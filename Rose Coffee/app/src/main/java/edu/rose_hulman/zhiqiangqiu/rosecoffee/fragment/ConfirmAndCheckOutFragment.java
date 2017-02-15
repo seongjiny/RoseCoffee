@@ -49,6 +49,7 @@ public class ConfirmAndCheckOutFragment extends Fragment {
                                     confirmButton.setText(Constants.PENDING_ORDER_MSG);
                                     confirmButton.setClickable(false);
                                     sendOrderToDatabase();
+                                    disable();
                                 }
                             })
                             .setNegativeButton(android.R.string.cancel,null);
@@ -90,6 +91,10 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         orderView.setText(String.format(Constants.DRINK_AND_SNACK_STATE,mOrder.getDrinks().size(),mOrder.getSnackCount()));
         priceView.setText(String.format(Constants.TOTAL_PRICE,mOrder.getTotalPrice()));
     }
+    private void disable() {
+        ((MainActivity) getActivity()).getToolbar().setVisibility(View.GONE);
+    }
+
 
 
 }
