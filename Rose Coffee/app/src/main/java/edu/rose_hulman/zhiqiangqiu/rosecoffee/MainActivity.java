@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AboutUsFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.AccountInformationFragment;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment.CustomerMainFragment;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private OnCompleteListener mOnCompleteListener;
     private Order mOrder;
+    private DatabaseReference mRef;
+    private HashMap<String,MenuDrink> mMenuDrinks = new HashMap<>();
+    private HashMap<String,Double> mMenuSnacks = new HashMap<>();
 //    private SharedPreferences mSharedPreferences;
 //    private SharedPreferenceUtils mSharedPreferenceUtils;
 
@@ -75,7 +80,8 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
         mOrder = new Order();
-
+        mRef = FirebaseDatabase.getInstance().getReference();
+        importDrinks();
         //To identify if the user is already log in
         initializeListeners();
     }
@@ -91,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.d("ddd", "Auth with user " + user);
+                    Log.d("ddd", "Auth with user :" + user);
                     if(mUser==null){
                         FirebaseDatabase db=FirebaseDatabase.getInstance();
                         DatabaseReference ref = db.getReference();
@@ -159,7 +165,6 @@ public class MainActivity extends AppCompatActivity
                 mUser.setName(result.getName());
                 mUser.setEmail(result.getEmail());
                 mUser.setIsCustomer(true);
-                mUser.setPhone("");
                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users/"+result.getUsername());
                 userRef.setValue(mUser);
             } else {
@@ -220,10 +225,6 @@ public class MainActivity extends AppCompatActivity
                 switchToLoginPage();
                 return true;
             case R.id.action_settings:
-                Log.d("FF",mUser+"");
-                if(mUser!=null){
-                    Log.d("FF", mUser.getName()+"");
-                }
                 return true;
         }
 
@@ -280,7 +281,49 @@ public class MainActivity extends AppCompatActivity
         ft.replace(R.id.content_main, new DeliveryMainFragment()).commit();
     }
     public Order getOrder(){
-        Log.d("ORDER","VISITED");
         return mOrder;
     }
+    public HashMap<String,MenuDrink> getDrinks(){
+        return mMenuDrinks;
+    }
+    public HashMap<String,Double> getSnacks(){
+        return mMenuSnacks;
+    }
+    public void importDrinks(){
+        DatabaseReference drinkRef = mRef.child("menu").child("drink");
+        drinkRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot d:dataSnapshot.getChildren()){
+                    MenuDrink newDrink = new MenuDrink(
+                            d.getKey().toString(),
+                            (double)d.child("large").getValue(),
+                            (double)d.child("medium").getValue(),
+                            (double)d.child("small").getValue()
+                            );
+                    mMenuDrinks.put(d.getKey().toString(),newDrink);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference snackRef = mRef.child("menu").child("snack");
+        snackRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot d: dataSnapshot.getChildren()){
+                    mMenuSnacks.put(d.getKey().toString(),(double)d.child("price").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
