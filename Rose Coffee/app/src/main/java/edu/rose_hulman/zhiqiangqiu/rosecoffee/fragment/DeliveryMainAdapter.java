@@ -2,6 +2,7 @@ package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +22,13 @@ import java.util.ArrayList;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
+
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.CLAIM_CANCEL_MESSAGE;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.CLAIM_ORDER_ALERT_CONTENT;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.CLAIM_ORDER_ALERT_TITLE;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.MULIPLE_SNACKS;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.ONE_DRINK;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.ONE_DRINK_ONE_SNACK;
 
 /**
  * Created by JerryQiu on 2/12/17.
@@ -111,26 +119,27 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
         int drinkNumber = order.getDrinkCount();
         int snackNumber = order.getSnackCount();
         String briefText = "";
+        //For this part, I really don't want to make more constant String... Seems so unnecessary...
         switch (drinkNumber) {
             case 0:
                 switch (snackNumber) {
                     case 0:
-                        Log.d("ddd", "No drink nor snack");
+//                        Log.d("ddd", "No drink nor snack");
                         break;
                     case 1:
-                        briefText = "1 snack";
+                        briefText = ONE_DRINK;
                         break;
                     default:
-                        briefText = snackNumber+ " snacks";
+                        briefText = snackNumber+ MULIPLE_SNACKS;
                 }
                 break;
             case 1:
                 switch (snackNumber) {
                     case 1:
-                        briefText = "1 drink, 1 snack";
+                        briefText = ONE_DRINK_ONE_SNACK;
                         break;
                     default:
-                        briefText = "1 drink, " + snackNumber + " snacks";
+                        briefText = "1 drink, " + snackNumber + MULIPLE_SNACKS;
                 }
                 break;
             default:
@@ -142,7 +151,7 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
                         briefText = drinkNumber + "drinks, 1 snack";
                         break;
                     default:
-                        briefText = drinkNumber+ " drinks, " + snackNumber + " snacks";
+                        briefText = drinkNumber+ " drinks, " + snackNumber + MULIPLE_SNACKS;
                 }
         }
         holder.mBriefTextView.setText(briefText);
@@ -152,8 +161,8 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(mCallback)
-                        .setTitle("Claim this order")
-                        .setMessage("Do you want to claim this order?")
+                        .setTitle(CLAIM_ORDER_ALERT_TITLE)
+                        .setMessage(CLAIM_ORDER_ALERT_CONTENT)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 mToClaimOrderRef.child(order.getOrderID()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -170,7 +179,11 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
                                         //If failed, snackbar show up.
-
+                                        Snackbar snackbar = Snackbar.make(mCallback.
+                                                findViewById(R.id.delivery_main_recycler_view),
+                                                CLAIM_CANCEL_MESSAGE,
+                                                Snackbar.LENGTH_LONG);
+                                        snackbar.show();
                                     }
                                 });
                             }

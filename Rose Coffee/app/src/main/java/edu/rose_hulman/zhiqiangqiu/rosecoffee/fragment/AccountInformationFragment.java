@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.User;
+
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.ACCOUNT_INFO_EDIT_EMAIL_CONTENT;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.ACCOUNT_INFO_EDIT_NAME_CONTENT;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.ACCOUNT_INFO_EDIT_TITLE;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.FIREBASE_REF_CUSTOMER;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.FIREBASE_REF_EMAIL;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.FIREBASE_REF_NAME;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.FIREBASE_REF_USERS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,27 +57,14 @@ public class AccountInformationFragment extends Fragment {
         mIsDeliverySwitch = (Switch) view.findViewById(R.id.is_delivering_switch);
 
         mUser = ((MainActivity) getActivity()).getUser();
-        mUserRef = FirebaseDatabase.getInstance().getReference().child("users/" + mUser.getUid());
+        mUserRef = FirebaseDatabase.getInstance().getReference().child(FIREBASE_REF_USERS).child(mUser.getUid()+"");
 
         mIsDeliverySwitch.setChecked(mUser.isCustomer());
         mIsDeliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // do something, the isChecked will be true if the switch is in the On position
-                if (mUser.isCustomer()) {
-                    if (isChecked) {
-                        Log.d("ddd", "User was customer. Should be changed to delivering. Actually changed to: customer");
-                    } else {
-                        Log.d("ddd", "User was customer. Should be changed to delivering. Actually changed to: delivery");
-                    }
-                }else {
-                    if (isChecked) {
-                        Log.d("ddd", "User was delivering. Should be changed to customer. Actually changed to: customer");
-                    }else {
-                        Log.d("ddd", "User was delivering. Should be changed to customer. Actually changed to: delivering");
-                    }
-                }
                 mUser.setIsCustomer(isChecked);
-                mUserRef.child("customer").setValue(isChecked);
+                mUserRef.child(FIREBASE_REF_CUSTOMER).setValue(isChecked);
             }
         });
 
@@ -86,21 +80,21 @@ public class AccountInformationFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                 final EditText edittext = new EditText(mContext);
-                alert.setMessage("Enter Your Name");
-                alert.setTitle("Edit");
+                alert.setMessage(ACCOUNT_INFO_EDIT_NAME_CONTENT);
+                alert.setTitle(ACCOUNT_INFO_EDIT_TITLE);
 
                 alert.setView(edittext);
 
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //What ever you want to do with the value
                         String YouEditTextValue = edittext.getText().toString();
                         mNameTextView.setText(YouEditTextValue);
-                        mUserRef.child("name").setValue(YouEditTextValue);
+                        mUserRef.child(FIREBASE_REF_NAME).setValue(YouEditTextValue);
                     }
                 });
 
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // what ever you want to do with No option.
                     }
@@ -113,22 +107,22 @@ public class AccountInformationFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                 final EditText edittext = new EditText(mContext);
-                alert.setMessage("Enter Your Email");
-                alert.setTitle("Edit");
+                alert.setMessage(ACCOUNT_INFO_EDIT_EMAIL_CONTENT);
+                alert.setTitle(ACCOUNT_INFO_EDIT_TITLE);
 
                 alert.setView(edittext);
 
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //What ever you want to do with the value
                         String YouEditTextValue = edittext.getText().toString();
                         mEmailTextView.setText(YouEditTextValue);
-                        mUserRef.child("email").setValue(YouEditTextValue);
+                        mUserRef.child(FIREBASE_REF_EMAIL).setValue(YouEditTextValue);
 
                     }
                 });
 
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // what ever you want to do with No option.
                     }
