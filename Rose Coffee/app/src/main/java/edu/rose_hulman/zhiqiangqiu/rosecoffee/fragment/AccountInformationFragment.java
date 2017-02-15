@@ -34,7 +34,6 @@ public class AccountInformationFragment extends Fragment {
         mIsDeliverySwitch = (Switch) view.findViewById(R.id.is_delivering_switch);
 
         mUser = ((MainActivity) getActivity()).getUser();
-        Log.d("ddd", mUser.getUid());
         mIsDeliverySwitch.setChecked(mUser.isCustomer());
         mIsDeliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
