@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Drink;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MenuDrink;
@@ -62,8 +62,8 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     private void undo(final MenuItem clearedItem,final int position) {
 
         Snackbar snackbar = Snackbar
-                .make(mRecyclerView,"Item Removed",Snackbar.LENGTH_LONG)
-                .setAction("UNDO",new View.OnClickListener(){
+                .make(mRecyclerView, Constants.ITEM_REMOVED,Snackbar.LENGTH_LONG)
+                .setAction(Constants.UNDO,new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
                         addMenuItem(position,clearedItem);
@@ -87,9 +87,9 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             if(m instanceof Drink){
                 newDrinks.add((Drink)m);
                 MenuDrink menuDrink = mAllDrinks.get(m.getName());
-                if(m.getSize().equals("Large")){
+                if(m.getSize().equals(Constants.SIZE_LARGE)){
                     totalPrice+=menuDrink.getPriceLarge();
-                }else if(m.getSize().equals("Medium")){
+                }else if(m.getSize().equals(Constants.SIZE_MEDIUM)){
                     totalPrice+=menuDrink.getPriceMedium();
                 }else{
                     totalPrice+=menuDrink.getPriceSmall();
@@ -178,7 +178,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         List<String> list = new ArrayList(mAllDrinks.keySet());
         String[] drinkNames = new String[list.size()];
         drinkNames = list.toArray(drinkNames);
-        String[] sizeNames = new String[]{"Large","Medium","Small"};
+        String[] sizeNames = Constants.SIZE_NAMES;
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(mContext,android.R.layout.simple_spinner_item,drinkNames);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(mContext,android.R.layout.simple_spinner_item,sizeNames);
 
@@ -239,7 +239,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("d","cancel");
                 mydialog.dismiss();
             }
         });

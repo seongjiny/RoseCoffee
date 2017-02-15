@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Drink;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MenuDrink;
@@ -77,7 +78,7 @@ public class OrderDetailFragment extends Fragment {
         List<String> list = new ArrayList(mAllDrinks.keySet());
         String[] drinkNames = new String[list.size()];
         drinkNames = list.toArray(drinkNames);
-        String[] sizeNames = new String[]{"Large","Medium","Small"};
+        String[] sizeNames = Constants.SIZE_NAMES;
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,drinkNames);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,sizeNames);
         final EditText editComment = (EditText)mydialog.findViewById(R.id.add_drink_edit_text);

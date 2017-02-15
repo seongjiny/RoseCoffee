@@ -72,22 +72,23 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         locationView.setText(mOrder.getLocation());
         timeView.setText(mOrder.getTime());
         ;
-        orderView.setText(String.format(Constants.DRINK_AND_SNACK_STATE,mOrder.getDrinks().size(),mOrder.getSnackCount()));
-        priceView.setText("$"+mOrder.getTotalPrice());
+        orderView.setText(String.format(Constants.DRINK_AND_SNACK_STATE,mOrder.getDrinks().size(),mOrder.getSnacks().size()));
+
+        priceView.setText(String.format(Constants.TOTAL_PRICE,mOrder.getTotalPrice()));
         return view;
     }
 
     private void sendOrderToDatabase() {
         DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_REF_ORDER);
-        orderRef.child("toClaim").push().setValue(mOrder);
+        orderRef.child(Constants.FIREBASE_REF_TOCLAIM).push().setValue(mOrder);
 
     }
 
     public void updateOrder(){
         TextView orderView = (TextView) mConfirmLayout.findViewById(R.id.confirm_order_detail);
         TextView priceView = (TextView) mConfirmLayout.findViewById(R.id.cus_confirm_price);
-        orderView.setText(mOrder.getDrinkCount()+" drinks and "+mOrder.getSnackCount()+" snacks");
-        priceView.setText("$"+mOrder.getTotalPrice());
+        orderView.setText(String.format(Constants.DRINK_AND_SNACK_STATE,mOrder.getDrinks().size(),mOrder.getSnackCount()));
+        priceView.setText(String.format(Constants.TOTAL_PRICE,mOrder.getTotalPrice()));
     }
 
 
