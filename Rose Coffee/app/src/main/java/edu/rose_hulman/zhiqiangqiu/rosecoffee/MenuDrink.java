@@ -6,21 +6,21 @@ package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
 public class MenuDrink {
     private String name;
-    private double priceSmall;
-    private double priceMedium;
     private double priceLarge;
+    private double priceMedium;
+    private double priceSmall;
 
     public MenuDrink(){
         name = "";
-        priceSmall = 0.0;
-        priceMedium = 0.0;
         priceLarge = 0.0;
+        priceMedium = 0.0;
+        priceSmall = 0.0;
     }
-    public MenuDrink(String name, double priceSmall, double priceMedium, double priceLarge){
+    public MenuDrink(String name, double priceLarge, double priceMedium, double priceSmall){
         this.name = name;
-        this.priceSmall = priceSmall;
-        this.priceMedium = priceMedium;
         this.priceLarge = priceLarge;
+        this.priceMedium = priceMedium;
+        this.priceSmall = priceSmall;
     }
 
     public String getName() {

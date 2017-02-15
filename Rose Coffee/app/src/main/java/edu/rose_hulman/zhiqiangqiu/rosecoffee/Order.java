@@ -3,7 +3,6 @@ package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by yoons1 on 1/15/2017.
@@ -19,9 +18,9 @@ public class Order {
     private String orderID;
     private String customer;
     private String location;
-    private List<Drink> drinks = new ArrayList<>();
-    private List<String> snacks = new ArrayList<>();
-    private double totalPrice;
+    private ArrayList<Drink> drinks = new ArrayList<>();
+    private ArrayList<String> snacks = new ArrayList<>();
+    private double totalPrice=0;
     private String time;
     private String delivery;
 
@@ -106,4 +105,14 @@ public class Order {
     public int getSnackCount() {return snacks.size();}
 
     public int getDrinkCount() {return drinks.size();}
+
+    public void setDrinks(ArrayList<Drink> drinks){
+        this.drinks=drinks;
+    }
+    public void setSnacks(ArrayList<String> snacks){
+        this.snacks=snacks;
+    }
+    public void addToTotalPrice(double price){
+        totalPrice+=price;
+    }
 }

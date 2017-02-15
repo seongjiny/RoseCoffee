@@ -9,10 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
-import edu.rose_hulman.zhiqiangqiu.rosecoffee.MenuItem;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 
@@ -41,22 +38,21 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         });
         TextView locationView = (TextView)mConfirmLayout.findViewById(R.id.cus_confirm_location);
         TextView timeView = (TextView) mConfirmLayout.findViewById(R.id.cus_confirm_time);
+        TextView orderView = (TextView) mConfirmLayout.findViewById(R.id.confirm_order_detail);
+        TextView priceView = (TextView) mConfirmLayout.findViewById(R.id.cus_confirm_price);
 
         locationView.setText(mOrder.getLocation());
         timeView.setText(mOrder.getTime());
+        orderView.setText(mOrder.getDrinkCount()+" drinks and "+mOrder.getSnackCount()+" snacks");
+        priceView.setText("$"+mOrder.getTotalPrice());
         return view;
     }
-    public void editOrderItemInformation(ArrayList<MenuItem> allMenu){
-        int size = allMenu.size();
-        String name = allMenu.get(0).getName();
-        TextView view = (TextView)mConfirmLayout.findViewById(R.id.confirm_order_detail);
-        if(size<=1){
-            view.setText(name);
-        }else if(size==2){
-            view.setText(name+" and "+(size-1)+" other");
-        }else{
-            view.setText(name+" and "+(size-1)+" others");
-        }
+    public void updateOrder(){
+        TextView orderView = (TextView) mConfirmLayout.findViewById(R.id.confirm_order_detail);
+        TextView priceView = (TextView) mConfirmLayout.findViewById(R.id.cus_confirm_price);
+        orderView.setText(mOrder.getDrinkCount()+" drinks and "+mOrder.getSnackCount()+" snacks");
+        priceView.setText("$"+mOrder.getTotalPrice());
     }
+
 
 }

@@ -3,11 +3,8 @@ package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +14,23 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Drink;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.MenuDrink;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Snack;
 
 public class OrderDetailFragment extends Fragment {
-    private FragmentManager mFragmentManager;
-    private FragmentTransaction mFragmentTransaction;
     private OrderDetailAdapter mAdapter;
+    private HashMap<String, MenuDrink> mAllDrinks = new HashMap<>();
+    private HashMap<String, Double> mAllSnacks = new HashMap<>();
     private ConfirmAndCheckOutFragment mConfirmFragment;
+    private Order mOrders;
 
     public OrderDetailFragment() {
 
@@ -52,11 +57,12 @@ public class OrderDetailFragment extends Fragment {
                 showAddSnackDialog();
             }
         });
-
-
+        mOrders = ((MainActivity)getActivity()).getOrder();
+        mAllDrinks = ((MainActivity)getActivity()).getDrinks();
+        mAllSnacks = ((MainActivity)getActivity()).getSnacks();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.order_detail_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new OrderDetailAdapter(getActivity(),recyclerView,mConfirmFragment);
+        mAdapter = new OrderDetailAdapter(((MainActivity)getActivity()),recyclerView,mOrders,mConfirmFragment);
         recyclerView.setAdapter(mAdapter);
 
         return view;
@@ -67,9 +73,10 @@ public class OrderDetailFragment extends Fragment {
         mydialog.setContentView(R.layout.dialog_add_drink);
         final Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_name_spinner);
         final Spinner sizeSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_size_spinner);
-//        ArrayList<String> arr= new ArrayList<>();
-        String[] drinkNames = new String[]{"Strawberry Frappuccino","Cappuccino","Cafe Latte"};
-//        String[] drinkNames = (String[]) ((Set<String>)((MainActivity)getActivity()).getDrinks().keySet()).toArray();
+
+        List<String> list = new ArrayList(mAllDrinks.keySet());
+        String[] drinkNames = new String[list.size()];
+        drinkNames = list.toArray(drinkNames);
         String[] sizeNames = new String[]{"Large","Medium","Small"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,drinkNames);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,sizeNames);
@@ -102,8 +109,10 @@ public class OrderDetailFragment extends Fragment {
         final Dialog mydialog = new Dialog(getActivity());
         mydialog.setContentView(R.layout.dialog_add_snack);
         final Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_snack_name_spinner);
-        String[] drinkNames = new String[]{"Muffin","Apple Sauce","Chips"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,drinkNames);
+        List<String> list = new ArrayList(mAllSnacks.keySet());
+        String[] snackNames = new String[list.size()];
+        snackNames = list.toArray(snackNames);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,snackNames);
         nameSpinner.setAdapter(adapter1);
         Button button = (Button) mydialog.findViewById(R.id.add_snack_ok);
         button.setOnClickListener(new View.OnClickListener() {
@@ -118,15 +127,13 @@ public class OrderDetailFragment extends Fragment {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("d","cancel");
                 mydialog.dismiss();
             }
         });
         mydialog.show();
     }
-
-
-    public void sendFragment(ConfirmAndCheckOutFragment confirmFragment) {
-        mConfirmFragment = confirmFragment;
+    public void receiveConfirmFragment(ConfirmAndCheckOutFragment fragment){
+        mConfirmFragment = fragment;
     }
+
 }

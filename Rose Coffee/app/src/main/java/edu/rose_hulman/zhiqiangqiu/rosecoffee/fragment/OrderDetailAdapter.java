@@ -16,9 +16,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Drink;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.MenuDrink;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MenuItem;
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Snack;
 
@@ -27,14 +32,19 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.Snack;
  */
 
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.ViewHolder>{
-    private ConfirmAndCheckOutFragment mConfirmFragment;
     private Context mContext;
     private RecyclerView mRecyclerView;
     private ArrayList<MenuItem> mMenuItems = new ArrayList<>();
-
-    public OrderDetailAdapter(Context context,RecyclerView recyclerView,ConfirmAndCheckOutFragment confirmFragment){
+    private Order mOrder;
+    private HashMap<String, Double> mAllSnacks;
+    HashMap<String, MenuDrink> mAllDrinks;
+    private ConfirmAndCheckOutFragment mConfirmFragment;
+    public OrderDetailAdapter(Context context,RecyclerView recyclerView,Order order,ConfirmAndCheckOutFragment confirmFragment){
         mContext = context;
         mRecyclerView = recyclerView;
+        mOrder = order;
+        mAllSnacks = ((MainActivity)mContext).getSnacks();
+        mAllDrinks = ((MainActivity)mContext).getDrinks();
         mConfirmFragment = confirmFragment;
     }
 
@@ -66,28 +76,53 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         undo(clearedItem,position);
         mMenuItems.remove(position);
         notifyDataSetChanged();
-        mConfirmFragment.editOrderItemInformation(mMenuItems);
+        updateOrder();
+    }
+
+    private void updateOrder() {
+        ArrayList<Drink> newDrinks = new ArrayList<>();
+        ArrayList<String> newSnacks = new ArrayList<>();
+        double totalPrice = 0.0;
+        for(MenuItem m:mMenuItems){
+            if(m instanceof Drink){
+                newDrinks.add((Drink)m);
+                MenuDrink menuDrink = mAllDrinks.get(m.getName());
+                if(m.getSize().equals("Large")){
+                    totalPrice+=menuDrink.getPriceLarge();
+                }else if(m.getSize().equals("Medium")){
+                    totalPrice+=menuDrink.getPriceMedium();
+                }else{
+                    totalPrice+=menuDrink.getPriceSmall();
+                }
+            }else{
+                newSnacks.add(m.getName());
+                totalPrice+=mAllSnacks.get(m.getName());
+            }
+        }
+        totalPrice= Double.parseDouble(String.format("%,02f",totalPrice));
+        mOrder.setDrinks(newDrinks);
+        mOrder.setSnacks(newSnacks);
+        mOrder.setTotalPrice(totalPrice);
+        mConfirmFragment.updateOrder();
     }
 
 
-
     public void editMenuItem(int position, MenuItem menuItem){
-        MenuItem clearedItem = mMenuItems.get(position);
         mMenuItems.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mMenuItems.size());
         addMenuItem(position,menuItem);
-        mConfirmFragment.editOrderItemInformation(mMenuItems);
+        //above line will call updateOrder();
     }
     public void addMenuItem(MenuItem menuItem){
         mMenuItems.add(0, menuItem);
         notifyDataSetChanged();
-        mConfirmFragment.editOrderItemInformation(mMenuItems);
+        updateOrder();
     }
     public void addMenuItem(int position,MenuItem menuItem){
         mMenuItems.add(position, menuItem);
         notifyDataSetChanged();
-        mConfirmFragment.editOrderItemInformation(mMenuItems);
+        updateOrder();
     }
     @Override
     public int getItemCount() {
@@ -140,8 +175,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         mydialog.setContentView(R.layout.dialog_add_drink);
         final Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_name_spinner);
         final Spinner sizeSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_size_spinner);
-        String[] drinkNames = new String[]{"Strawberry Frappuccino","Cappuccino","Cafe Latte"};
-        String[] sizeNames = new String[]{"Venti","Grande","Tall"};
+        List<String> list = new ArrayList(mAllDrinks.keySet());
+        String[] drinkNames = new String[list.size()];
+        drinkNames = list.toArray(drinkNames);
+        String[] sizeNames = new String[]{"Large","Medium","Small"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(mContext,android.R.layout.simple_spinner_item,drinkNames);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(mContext,android.R.layout.simple_spinner_item,sizeNames);
 
@@ -180,7 +217,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         final Dialog mydialog = new Dialog(mContext);
         mydialog.setContentView(R.layout.dialog_add_snack);
         final Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_snack_name_spinner);
-        String[] snackNames = new String[]{"Muffin","Apple Sauce","Chips"};
+
+        List<String> list = new ArrayList(mAllSnacks.keySet());
+        String[] snackNames = new String[list.size()];
+        snackNames = list.toArray(snackNames);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(mContext,android.R.layout.simple_spinner_item,snackNames);
         nameSpinner.setAdapter(adapter1);
         int snackIndex= Arrays.asList(snackNames).indexOf(mMenuItems.get(position).getName());
