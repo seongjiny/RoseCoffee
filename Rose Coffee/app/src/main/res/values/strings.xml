@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Rose Coffee</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -50,7 +49,6 @@
     <string name="cus_confirm_time" />
     <string name="order">Order :</string>
     <string name="cus_confirm_order" />
-    <string name="confrim_status">Waiting for order to be claimed...</string>
     <string name="order_item_name" />
     <string name="action_logout">Log Out</string>
     <string name="order_item">item1</string>

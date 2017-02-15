@@ -1,5 +1,7 @@
 package edu.rose_hulman.zhiqiangqiu.rosecoffee;
 
+import android.util.Log;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Order {
     private String orderID;
-    private String customer;
+    private String customerID;
     private String location;
     private ArrayList<Drink> drinks = new ArrayList<>();
     private ArrayList<String> snacks = new ArrayList<>();
@@ -22,7 +24,7 @@ public class Order {
     }
 
     public Order(String customer, String location, String time, ArrayList<Drink> drinks, ArrayList<String> snacks, double totalPrice) {
-        this.customer = customer;
+        this.customerID = customer;
         this.location = location;
         this.time = time;
         this.drinks = drinks;
@@ -47,12 +49,13 @@ public class Order {
         this.orderID = orderID;
     }
 
-    public String getCustomer() {
-        return customer;
+    public String getCustomerID() {
+        return customerID;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    public void setCustomerID(String customerID) {
+        Log.d("TTT",customerID+"");
+        this.customerID = customerID;
     }
 
     public String getLocation() {

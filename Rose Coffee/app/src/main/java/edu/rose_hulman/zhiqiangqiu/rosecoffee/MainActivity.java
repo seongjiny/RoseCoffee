@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity
             Log.d("ddd", "Init Jump to Customer Main");
             initialFragment = new CustomerMainFragment();
             mOrder = new Order();
-            mOrder.setCustomer(mUser.getUid());
+            mOrder.setCustomerID(mUser.getUid());
         } else {
             Log.d("ddd", "Init Jump to Delivery Main");
             initialFragment = new DeliveryMainFragment();
