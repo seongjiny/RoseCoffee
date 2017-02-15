@@ -3,6 +3,7 @@ package edu.rose_hulman.zhiqiangqiu.rosecoffee.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -22,13 +23,16 @@ import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.User;
 
+import static android.content.Context.MODE_PRIVATE;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.ACCOUNT_INFO_EDIT_EMAIL_CONTENT;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.ACCOUNT_INFO_EDIT_NAME_CONTENT;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.ACCOUNT_INFO_EDIT_TITLE;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.CUSTOMER_KEY;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.FIREBASE_REF_CUSTOMER;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.FIREBASE_REF_EMAIL;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.FIREBASE_REF_NAME;
 import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.FIREBASE_REF_USERS;
+import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.PREFS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +69,10 @@ public class AccountInformationFragment extends Fragment {
                 // do something, the isChecked will be true if the switch is in the On position
                 mUser.setIsCustomer(isChecked);
                 mUserRef.child(FIREBASE_REF_CUSTOMER).setValue(isChecked);
+                SharedPreferences prefs = mContext.getSharedPreferences(PREFS, MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(CUSTOMER_KEY, isChecked);
+                editor.commit();
             }
         });
 
@@ -118,7 +126,6 @@ public class AccountInformationFragment extends Fragment {
                         String YouEditTextValue = edittext.getText().toString();
                         mEmailTextView.setText(YouEditTextValue);
                         mUserRef.child(FIREBASE_REF_EMAIL).setValue(YouEditTextValue);
-
                     }
                 });
 

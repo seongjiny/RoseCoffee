@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
@@ -169,11 +170,11 @@ public class DeliveryMainAdapter extends RecyclerView.Adapter<DeliveryMainAdapte
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         //If succeed, jump to next page.
-                                        Order order = dataSnapshot.getValue(Order.class);
-                                        order.setOrderID(dataSnapshot.getKey());
-                                        mToClaimOrderRef.child(order.getOrderID()).removeValue();
-                                        order.setDelivery(mCallback.getUser().getUid());
-                                        mCallback.onDeliveryListSelected(order, mToClaimOrderRef);
+                                        HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getChildren();
+                                        map.put("delivery", mCallback.getUser().getUid()+"");
+                                        String key  = dataSnapshot.getKey();
+                                        mToClaimOrderRef.child(key).removeValue();
+                                        mCallback.onDeliveryListSelected(key, map);
                                     }
 
                                     @Override
