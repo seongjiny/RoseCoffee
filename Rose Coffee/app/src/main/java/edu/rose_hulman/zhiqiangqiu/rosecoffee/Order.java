@@ -37,22 +37,6 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public void addDrink(Drink drink){
-        drinks.add(drink);
-    }
-
-    public void deleteDrink(Drink drink){
-        drinks.remove(drink);
-    }
-
-    public void addSnack(String snack){
-        snacks.add(snack);
-    }
-
-    public void removeSnack(String snack){
-        snacks.remove(snack);
-    }
-
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -102,8 +86,10 @@ public class Order {
         this.delivery = delivery;
     }
 
+    @Exclude
     public int getSnackCount() {return snacks.size();}
 
+    @Exclude
     public int getDrinkCount() {return drinks.size();}
 
     public void setDrinks(ArrayList<Drink> drinks){
@@ -112,7 +98,15 @@ public class Order {
     public void setSnacks(ArrayList<String> snacks){
         this.snacks=snacks;
     }
-    public void addToTotalPrice(double price){
+
+    public ArrayList<Drink> getDrinks() {
+        return drinks;
+    }
+
+    public ArrayList<String> getSnacks() {
+        return snacks;
+    }
+    public void addToTotalPrice(double price) {
         totalPrice+=price;
     }
 }
