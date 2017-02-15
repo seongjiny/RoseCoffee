@@ -14,14 +14,14 @@
         android:paddingRight="20dp">
 
         <TextView
-            android:text="I am not delivering"
+            android:text="@string/i_am_not_delivering"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/is_delivering_index_textview"
             android:textSize="18sp" />
 
         <Switch
-            android:text="Switch"
+            android:text="@string/Infoswitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/is_delivering_switch"
@@ -50,14 +50,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Profile Photo"
+            android:text="@string/change_profile_photo"
             android:id="@+id/change_profile_image_textview"
             android:layout_below="@+id/profile_photo_imagebutton"
             android:textColor="@color/linkBlue"
             android:layout_centerHorizontal="true" />
 
         <TextView
-            android:text="Name:"
+            android:text="@string/name"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:id="@+id/name_edit_imagebutton" />
 
         <TextView
-            android:text="Zhiqiang Qiu"
+            android:text="@string/zhiqiang_qiu"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_alignTop="@+id/name_index_textview" />
 
         <TextView
-            android:text="Email:"
+            android:text="@string/email"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
             android:id="@+id/email_edit_imagebutton" />
 
         <TextView
-            android:text="qiuz@rose-hulman.edu"
+            android:text="@string/qiuz_rose_hulman_edu"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

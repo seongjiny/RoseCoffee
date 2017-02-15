@@ -56,5 +56,19 @@
     <string name="dialog_location_title">Where do you want to pick up your order?</string>
     <string name="location_name">Location Name</string>
     <string name="location_hint">ex. O259</string>
+    <string name="Detailorder">Order:</string>
+    <string name="unknown">unknown</string>
+    <string name="Detaillocation">Location:</string>
+    <string name="Detailtime">Time:</string>
+    <string name="loading">loading</string>
+    <string name="Detailcustomer">Customer:</string>
+    <string name="finish">Finish</string>
+    <string name="i_am_not_delivering">I am not delivering</string>
+    <string name="Infoswitch">Switch</string>
+    <string name="change_profile_photo">Change Profile Photo</string>
+    <string name="name">Name:</string>
+    <string name="zhiqiang_qiu">Zhiqiang Qiu</string>
+    <string name="email">Email:</string>
+    <string name="qiuz_rose_hulman_edu">qiuz@rose-hulman.edu</string>
 
 </resources>

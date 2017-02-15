@@ -39,6 +39,8 @@ import static edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants.PREFS;
  */
 public class AccountInformationFragment extends Fragment {
 
+    private static final int MAX_LINE = 1;
+
     private User mUser;
     private Context mContext;
     private Switch mIsDeliverySwitch;
@@ -88,6 +90,7 @@ public class AccountInformationFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                 final EditText edittext = new EditText(mContext);
+                edittext.setMaxLines(MAX_LINE);
                 alert.setMessage(ACCOUNT_INFO_EDIT_NAME_CONTENT);
                 alert.setTitle(ACCOUNT_INFO_EDIT_TITLE);
 
@@ -115,6 +118,7 @@ public class AccountInformationFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                 final EditText edittext = new EditText(mContext);
+                edittext.setMaxLines(MAX_LINE);
                 alert.setMessage(ACCOUNT_INFO_EDIT_EMAIL_CONTENT);
                 alert.setTitle(ACCOUNT_INFO_EDIT_TITLE);
 

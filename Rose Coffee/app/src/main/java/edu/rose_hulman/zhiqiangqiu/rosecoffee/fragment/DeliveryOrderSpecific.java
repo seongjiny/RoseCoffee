@@ -47,13 +47,21 @@ public class DeliveryOrderSpecific extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRef  = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_REF_ORDER).child(Constants.FIREBASE_REF_CLAIMED);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_delivery_order_specific, container, false);
+
         mCallback = (MainActivity)getActivity();
         SharedPreferences prefs = mCallback.getSharedPreferences(PREFS,MODE_PRIVATE);
         String key = prefs.getString(Constants.ORDER_KEY, "");
-        final TextView locationTextView = (TextView) mCallback.findViewById(R.id.delivery_detail_location);
-        final TextView timeTextView = (TextView) mCallback.findViewById(R.id.delivery_detail_time);
-        final TextView customerTextView = (TextView) mCallback.findViewById(R.id.delivery_detail_customer);
-        final TextView orderTextView = (TextView) mCallback.findViewById(R.id.delivery_detail_order);
+        final TextView locationTextView = (TextView) view.findViewById(R.id.delivery_detail_location);
+        final TextView timeTextView = (TextView) view.findViewById(R.id.delivery_detail_time);
+        final TextView customerTextView = (TextView) view.findViewById(R.id.delivery_detail_customer);
+        final TextView orderTextView = (TextView) view.findViewById(R.id.delivery_detail_order);
 
         mRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -64,7 +72,7 @@ public class DeliveryOrderSpecific extends Fragment {
                 customerTextView.setText(order.getCustomerID());
                 String orderText = "";
                 for (Drink d: order.getDrinks()) {
-                    String s = d.getName() + " " + d.getSize();
+                    String s = d.getName() + " - " + d.getSize();
                     if (d.getComment().equals("")) {
                         s += "-" + d.getComment();
                     }
@@ -81,15 +89,8 @@ public class DeliveryOrderSpecific extends Fragment {
 
             }
         });
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_delivery_order_specific, container, false);
-
-        Button finishButton = (Button) mCallback.findViewById(R.id.delivery_finish_button);
+        Button finishButton = (Button) view.findViewById(R.id.delivery_finish_button);
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
