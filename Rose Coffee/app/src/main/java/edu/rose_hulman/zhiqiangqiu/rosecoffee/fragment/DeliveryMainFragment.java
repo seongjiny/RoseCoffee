@@ -94,7 +94,6 @@ public class DeliveryMainFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface Callback {
-        // TODO: Update argument type and name
-        void onDeliveryListSelected(Order order);
+        void onDeliveryListSelected(Order order, DatabaseReference ref);
     }
 }

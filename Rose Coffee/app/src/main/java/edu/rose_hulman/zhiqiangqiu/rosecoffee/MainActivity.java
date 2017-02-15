@@ -273,7 +273,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDeliveryListSelected(Order order) {
-        //TODO:
+    public void onDeliveryListSelected(Order order, DatabaseReference toClaimRef) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_main, new DeliveryMainFragment()).commit();
     }
 }
