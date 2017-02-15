@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
                 R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        mOrder = new Order();
+
         mRef = FirebaseDatabase.getInstance().getReference();
         importDrinks();
         SharedPreferences prefs = getSharedPreferences(PREFS,MODE_PRIVATE);
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity
         mUser.setEmail(prefs.getString(EMAIL_KEY,null));
         mUser.setIsCustomer(prefs.getBoolean(CUSTOMER_KEY,true));
         mUser.setName(prefs.getString(NAME_KEY,null));
+
         //To identify if the user is already log in
         initializeListeners();
     }
@@ -156,6 +157,8 @@ public class MainActivity extends AppCompatActivity
         if (mUser.isCustomer()) {
             Log.d("ddd", "Init Jump to Customer Main");
             initialFragment = new CustomerMainFragment();
+            mOrder = new Order();
+            mOrder.setCustomer(mUser.getUid());
         } else {
             Log.d("ddd", "Init Jump to Delivery Main");
             initialFragment = new DeliveryMainFragment();
