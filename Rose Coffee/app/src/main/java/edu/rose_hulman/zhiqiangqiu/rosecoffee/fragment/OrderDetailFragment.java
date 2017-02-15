@@ -67,8 +67,10 @@ public class OrderDetailFragment extends Fragment {
         mydialog.setContentView(R.layout.dialog_add_drink);
         final Spinner nameSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_name_spinner);
         final Spinner sizeSpinner = (Spinner) mydialog.findViewById(R.id.add_drink_size_spinner);
+//        ArrayList<String> arr= new ArrayList<>();
         String[] drinkNames = new String[]{"Strawberry Frappuccino","Cappuccino","Cafe Latte"};
-        String[] sizeNames = new String[]{"Venti","Grande","Tall"};
+//        String[] drinkNames = (String[]) ((Set<String>)((MainActivity)getActivity()).getDrinks().keySet()).toArray();
+        String[] sizeNames = new String[]{"Large","Medium","Small"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,drinkNames);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,sizeNames);
         final EditText editComment = (EditText)mydialog.findViewById(R.id.add_drink_edit_text);

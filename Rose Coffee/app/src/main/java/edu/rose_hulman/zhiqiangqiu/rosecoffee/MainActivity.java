@@ -297,9 +297,9 @@ public class MainActivity extends AppCompatActivity
                 for(DataSnapshot d:dataSnapshot.getChildren()){
                     MenuDrink newDrink = new MenuDrink(
                             d.getKey().toString(),
-                            (double)d.child("large").getValue(),
-                            (double)d.child("medium").getValue(),
-                            (double)d.child("small").getValue()
+                            Double.parseDouble(d.child("large").getValue().toString()),
+                            Double.parseDouble(d.child("medium").getValue().toString()),
+                            Double.parseDouble(d.child("small").getValue().toString())
                             );
                     mMenuDrinks.put(d.getKey().toString(),newDrink);
                 }
@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot d: dataSnapshot.getChildren()){
-                    mMenuSnacks.put(d.getKey().toString(),(double)d.child("price").getValue());
+                    mMenuSnacks.put(d.getKey().toString(),Double.parseDouble(d.child("price").getValue().toString()));
                 }
             }
 
