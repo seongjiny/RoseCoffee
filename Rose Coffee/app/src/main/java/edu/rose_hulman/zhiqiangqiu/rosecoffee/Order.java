@@ -8,13 +8,6 @@ import java.util.ArrayList;
  * Created by yoons1 on 1/15/2017.
  */
 public class Order {
-//    private int orderState;
-//    // orderState = -1: Order is expired;Was never claimed by any DeliveryPerson.
-//    // orderState = 0 : Order is just made, pending to be claimed by DeliveryPerson.
-//    // orderState = 1 : Order is claimed by DeliveryPerson, Customer is waiting for Delivery guy.
-//    // orderState = 2 : Customer has received a drink and accepted that order is complete.
-//    // orderState = 3 : Order is complete, it is stored in Order history.
-//    // orderState 2 and 3 might be merged later
     private String orderID;
     private String customer;
     private String location;
@@ -106,7 +99,11 @@ public class Order {
     public ArrayList<String> getSnacks() {
         return snacks;
     }
-    public void addToTotalPrice(double price) {
-        totalPrice+=price;
+    @Exclude
+    public boolean isOrderReady() {
+        if(location==null) return false;
+        else if(time==null) return false;
+        else if(drinks.size()+snacks.size()==0) return false;
+        else return true;
     }
 }

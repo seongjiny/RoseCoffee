@@ -24,4 +24,10 @@ public class Constants {
     public static final String FIREBASE_REF_ORDER = "order";
     public static final String FIREBASE_REF_USERS = "users";
     public static final String FIREBASE_REF_CUSTOMER = "customer";
+    public static final String CONFIRM_PAYMENT_ALERT = "Do you really want to make this Payment?";
+    public static final String PENDING_ORDER_MSG = "Searching for deliverer...";
+    public static final String ILLEGAL_ORDER_STATE_ALERT = "Please fill out all the order information.";
+    public static final String DRINK_AND_SNACK_STATE = "%d drinks and %d snacks";
+
+
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import edu.rose_hulman.zhiqiangqiu.rosecoffee.Constants;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.MainActivity;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.Order;
 import edu.rose_hulman.zhiqiangqiu.rosecoffee.R;
@@ -38,14 +39,14 @@ public class ConfirmAndCheckOutFragment extends Fragment {
             public void onClick(View v) {
                 if(mOrder.isOrderReady()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("Do you really want to make this Payment?");
+                    builder.setTitle(Constants.CONFIRM_PAYMENT_ALERT);
                     builder
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     ProgressBar pb = (ProgressBar)view.findViewById(R.id.confirm_progress);
                                     pb.setVisibility(View.VISIBLE);
-                                    confirmButton.setText("Searching for deliverer...");
+                                    confirmButton.setText(Constants.PENDING_ORDER_MSG);
                                     confirmButton.setClickable(false);
                                     sendOrderToDatabase();
                                 }
@@ -57,7 +58,7 @@ public class ConfirmAndCheckOutFragment extends Fragment {
                     builder.create().show();
                 }else{
                     Snackbar snackbar = Snackbar
-                            .make(view,"Please fill out all the order information.",Snackbar.LENGTH_LONG);
+                            .make(view,Constants.ILLEGAL_ORDER_STATE_ALERT,Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
 
@@ -70,13 +71,14 @@ public class ConfirmAndCheckOutFragment extends Fragment {
 
         locationView.setText(mOrder.getLocation());
         timeView.setText(mOrder.getTime());
-        orderView.setText(mOrder.getDrinkCount()+" drinks and "+mOrder.getSnackCount()+" snacks");
+        ;
+        orderView.setText(String.format(Constants.DRINK_AND_SNACK_STATE,mOrder.getDrinks().size(),mOrder.getSnackCount()));
         priceView.setText("$"+mOrder.getTotalPrice());
         return view;
     }
 
     private void sendOrderToDatabase() {
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("order");
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_REF_ORDER);
         orderRef.child("toClaim").push().setValue(mOrder);
 
     }
