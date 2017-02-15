@@ -306,9 +306,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDeliveryListSelected(Order order, DatabaseReference toClaimRef) {
+        mRef.child("order/claimed").child(order.getOrderID()).setValue(order);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_main, new DeliveryMainFragment()).commit();
     }
+
     public Order getOrder(){
         return mOrder;
     }
