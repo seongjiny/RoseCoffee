@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,10 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         mConfirmLayout = view.findViewById(R.id.confirm_detail_layout);
         pb = (ProgressBar)view.findViewById(R.id.confirm_progress);
         mOrder = ((MainActivity)getActivity()).getOrder();
+        if(mOrder.getPending()){
+            confirmButton.setText(Constants.PENDING_ORDER_MSG);
+            pb.setVisibility(View.VISIBLE);
+        }
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +58,7 @@ public class ConfirmAndCheckOutFragment extends Fragment {
                                     pb.setVisibility(View.VISIBLE);
                                     confirmButton.setText(Constants.PENDING_ORDER_MSG);
                                     confirmButton.setClickable(false);
+                                    mOrder.setPending(true);
                                     sendOrderToDatabase();
                                 }
                             })
@@ -90,7 +94,6 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         DatabaseReference parent = orderRef.child(Constants.FIREBASE_REF_TOCLAIM);
         DatabaseReference temp = parent.push();
         final String key = temp.getKey();
-        Log.d("OOO",key+"");
         parent.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -104,7 +107,6 @@ public class ConfirmAndCheckOutFragment extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.d("DDD",dataSnapshot.getKey()+"");
                 if(dataSnapshot.getKey().toString().equals(key)){
                     reset();
 
@@ -139,6 +141,10 @@ public class ConfirmAndCheckOutFragment extends Fragment {
         mOrder = new Order();
         mOrder.setCustomerID(uid);
         ((MainActivity) getActivity()).switchToMyDeliveryFragment();
+        Snackbar snackbar = Snackbar
+                .make(pb,Constants.ORDER_TAKEN_SUCCESSFUL,Snackbar.LENGTH_LONG);
+        snackbar.show();
+
     }
 
 

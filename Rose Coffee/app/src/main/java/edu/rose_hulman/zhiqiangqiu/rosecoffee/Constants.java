@@ -40,5 +40,5 @@ public class Constants {
     public static final String SIZE_LARGE = "Large";
     public static final String SIZE_MEDIUM = "Medium";
     public static final String NEW_LINE = "\n";
-
+    public static final String ORDER_TAKEN_SUCCESSFUL = "Order is taken by deliverer successfully";
 }

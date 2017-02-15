@@ -18,6 +18,7 @@ public class Order {
     private double totalPrice=0;
     private String time;
     private String delivery;
+    private boolean pending=false;
 
     public Order() {
         //Empty
@@ -101,6 +102,13 @@ public class Order {
 
     public ArrayList<String> getSnacks() {
         return snacks;
+    }
+    @Exclude
+    public boolean getPending(){
+        return pending;
+    }
+    public void setPending(boolean b){
+        pending=b;
     }
     @Exclude
     public boolean isOrderReady() {
